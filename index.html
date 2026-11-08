@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#181818">
 <meta name="description" content="XAUUSD leverage calculator — find the leverage you need for any gold position.">
-<meta property="og:title" content="XAUUSD Leverage Calculator">
+<meta property="og:title" content="Aurum — XAUUSD Leverage Calculator">
 <meta property="og:description" content="Enter account balance, lot size and gold price — get the leverage you need, position value and gold quantity.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://0xshaikh.github.io/calculators/">
-<title>XAUUSD Leverage Calculator</title>
+<title>Aurum — XAUUSD Leverage Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -69,11 +69,29 @@ dt{color:var(--muted);font-size:.85rem}
 dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;font-family:"Geist Mono","Manrope",monospace}
 .note{color:var(--faint);font-size:.78rem;line-height:1.55;margin:22px 2px 0}
 #bin-note{color:var(--gold);font-weight:600;font-size:.82rem;margin-top:14px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 26px;background:transparent;border:0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.brand-ico{width:30px;height:30px;flex:none}
+.brand-name{font-size:1.25rem;font-weight:700;letter-spacing:-0.01em;transition:color .3s var(--curve)}
+.brand:hover .brand-name{color:var(--gold)}
+.nav-tag{font-size:.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint)}
+@media (max-width:460px){.nav-tag{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <main>
+  <header class="nav">
+    <a class="brand" href="#" aria-label="Aurum home">
+      <svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="10" width="18" height="11" rx="2" fill="#E8C26A"/>
+        <rect x="7" y="6" width="10" height="5" rx="1.5" fill="#C9A34E"/>
+        <rect x="10" y="3" width="4" height="4" rx="1" fill="#A8842F"/>
+      </svg>
+      <span class="brand-name">Aurum</span>
+    </a>
+    <span class="nav-tag">XAUUSD &middot; Futures</span>
+  </header>
   <h1>XAUUSD leverage calculator</h1>
   <div class="card">
     <div class="field">
