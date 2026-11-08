@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#050302">
-<meta name="description" content="XAUUSD leverage calculator — find the leverage you need for any gold position.">
-<meta property="og:title" content="Aurum — XAUUSD Leverage Calculator">
-<meta property="og:description" content="Enter account balance, lot size and gold price — get the leverage you need, position value and gold quantity.">
+<meta name="description" content="Required leverage calculator for gold, silver, crypto and FX pairs — find the leverage you need for any position.">
+<meta property="og:title" content="Aurum — Required Leverage Calculator">
+<meta property="og:description" content="Enter account balance, pair, lot size and price — get the leverage you need, position value and quantity.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://0xshaikh.github.io/calculators/">
-<title>Aurum — XAUUSD Leverage Calculator</title>
+<title>Aurum — Required Leverage Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -34,14 +34,19 @@ h1{font-size:calc(34*var(--u));font-weight:600;letter-spacing:-.02em;text-align:
 .card{background:var(--glass);border:1px solid rgba(255,190,120,.14);border-radius:calc(6*var(--u));-webkit-backdrop-filter:blur(calc(10*var(--u)));backdrop-filter:blur(calc(10*var(--u)));box-shadow:0 calc(20*var(--u)) calc(60*var(--u)) rgba(0,0,0,.45);padding:calc(6*var(--u)) calc(21*var(--u)) calc(24*var(--u));width:100%}
 .field{margin-bottom:calc(18*var(--u))}
 label{display:block;font-size:calc(14.5*var(--u));font-weight:500;color:var(--mid);margin-bottom:calc(7*var(--u))}
-input{width:100%;font:inherit;font-size:calc(17*var(--u));color:var(--cream);background:rgba(0,0,0,.3);border:1px solid rgba(255,190,120,.18);border-radius:calc(6*var(--u));padding:calc(13*var(--u)) calc(14*var(--u));transition:border-color .3s,box-shadow .3s}
+input,select{width:100%;font:inherit;font-size:calc(17*var(--u));color:var(--cream);background:rgba(0,0,0,.3);border:1px solid rgba(255,190,120,.18);border-radius:calc(6*var(--u));padding:calc(13*var(--u)) calc(14*var(--u));transition:border-color .3s,box-shadow .3s}
 input::placeholder{color:rgba(217,195,173,.5)}
-input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(248,150,64,.18)}
+input:focus,select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(248,150,64,.18)}
 input[aria-invalid="true"]{border-color:#e5484d}
+input:disabled{opacity:.45}
+select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%23fbefe2' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:12px 12px;padding-right:36px}
+select option{color:#1b0d05}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{font-size:calc(12.5*var(--u));color:var(--mid);margin:calc(6*var(--u)) calc(2*var(--u)) 0;line-height:1.4;opacity:.85}
 button#calc{width:100%;font:inherit;font-weight:600;font-size:calc(16*var(--u));letter-spacing:.02em;color:var(--ink);background:linear-gradient(180deg,#f89640,#e26a18);border-radius:calc(6*var(--u));padding:calc(16*var(--u));margin-top:calc(6*var(--u));transition:filter .2s,transform .1s}
 button#calc:hover{filter:brightness(1.1)}
 button#calc:active{transform:scale(.98)}
-button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 #error{color:#e5484d;font-size:calc(14.5*var(--u));min-height:1.3em;margin:0 0 calc(12*var(--u))}
 #error:empty{display:none}
 #result{margin-top:calc(24*var(--u));padding-top:calc(24*var(--u));border-top:1px solid var(--line);text-align:center;animation:in .5s}
@@ -53,8 +58,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--cream);outline-offs
 dl{margin:calc(24*var(--u)) 0 0;text-align:left;font-size:calc(15*var(--u));display:grid;gap:calc(8*var(--u))}
 dl div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(12*var(--u)) calc(14*var(--u));background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:calc(6*var(--u))}
 dt{color:var(--mid);font-size:calc(13.5*var(--u))}
-dd{margin:0;font-weight:500;font-variant-numeric:tabular-nums;font-family:"Geist Mono",monospace}
-#bin-note{color:var(--peach);font-weight:500;font-size:calc(14*var(--u));margin-top:calc(14*var(--u))}
+dd{margin:0;font-weight:500;font-variant-numeric:tabular-nums;font-family:"Geist Mono",monospace;text-align:right}
 footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:calc(40*var(--u));padding:calc(46*var(--u)) calc(64*var(--u)) calc(44*var(--u));background:linear-gradient(180deg,rgba(40,20,8,.86),rgba(84,40,14,.84));border:1px solid rgba(255,190,120,.12);border-radius:calc(6*var(--u));-webkit-backdrop-filter:blur(calc(12*var(--u)));backdrop-filter:blur(calc(12*var(--u)))}
 .f-brand{display:flex;align-items:center;gap:calc(14*var(--u));font-size:calc(25*var(--u));font-weight:500;letter-spacing:-.02em;color:var(--cream)}
 .f-mark{display:grid;place-items:center;width:calc(38*var(--u));height:calc(38*var(--u));background:var(--cream);border-radius:calc(2*var(--u));flex:none}
@@ -68,6 +72,7 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
   .big{font-size:56px}
   footer{grid-template-columns:1fr;padding:32px 24px;margin-top:64px}
 }
+@media (max-width:460px){.row{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -85,21 +90,32 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
           </svg>
           <span>Aurum</span>
         </a>
-        <span class="nav-tag">XAUUSD &middot; Futures</span>
+        <span class="nav-tag">Futures &middot; Leverage</span>
       </header>
-      <h1>XAUUSD leverage calculator</h1>
+      <h1>Required leverage calculator</h1>
       <div class="card">
         <div class="field">
           <label for="balance">Account Balance (USD)</label>
           <input id="balance" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter balance">
         </div>
         <div class="field">
-          <label for="lot">Desired Lot Size</label>
-          <input id="lot" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter lot size">
+          <label for="pair">Pair</label>
+          <select id="pair"></select>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="lot">Lot Size</label>
+            <input id="lot" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter lot size">
+          </div>
+          <div class="field">
+            <label for="contract" id="contract-label">Contract Size</label>
+            <input id="contract" type="number" inputmode="decimal" min="0" step="any">
+          </div>
         </div>
         <div class="field">
-          <label for="price">Current Gold Price (USD)</label>
-          <input id="price" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter gold price">
+          <label for="price">Current Price (USD)</label>
+          <input id="price" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter price">
+          <p class="hint" id="price-hint"></p>
         </div>
         <p id="error" role="alert"></p>
         <button id="calc" type="button">Calculate required leverage</button>
@@ -109,20 +125,20 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
           <p class="big"><span id="lev"></span><small>LEVERAGE</small></p>
           <dl>
             <div><dt>Account Balance</dt><dd id="o-bal"></dd></div>
-            <div><dt>Desired Lot Size</dt><dd id="o-lot"></dd></div>
-            <div><dt>Gold Price</dt><dd id="o-price"></dd></div>
+            <div><dt>Pair</dt><dd id="o-pair"></dd></div>
+            <div><dt>Lot Size</dt><dd id="o-lot"></dd></div>
+            <div><dt>Price</dt><dd id="o-price"></dd></div>
             <div><dt>Position Value</dt><dd id="o-pos"></dd></div>
-            <div><dt>Gold Quantity</dt><dd id="o-oz"></dd></div>
+            <div><dt>Quantity</dt><dd id="o-qty"></dd></div>
           </dl>
-          <p class="note" id="bin-note" hidden></p>
         </section>
       </div>
     </div>
     <footer>
       <div>
         <a class="f-brand" href="#" aria-label="Aurum"><span class="f-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="18" height="11" rx="2" fill="#1b0d05"/><rect x="7" y="6" width="10" height="5" rx="1.5" fill="#1b0d05"/><rect x="10" y="3" width="4" height="4" rx="1" fill="#1b0d05"/></svg></span>Aurum</a>
-        <p class="f-tag">Theoretical estimate assuming your entire balance is available as initial margin, and 1.00 lot = 100 oz of gold. It does not guarantee a broker will allow this leverage or accept the order. Actual margin requirements, leverage tiers, fees, spread, maintenance margin and liquidation rules vary by broker.</p>
-        <p class="f-copy">&copy; Aurum 2026 &middot; XAUUSD Futures Calculator</p>
+        <p class="f-tag">Prices are a snapshot from 4–6 Nov 2026 and do not update live, so replace the price with your broker's current quote. Contract sizes are common broker defaults; check your broker's specification and edit if different. This is a theoretical estimate assuming your entire balance is available as initial margin. It does not guarantee a broker will allow that leverage or accept the order. Actual margin requirements, leverage tiers, fees, spread, maintenance margin and liquidation rules vary by broker.</p>
+        <p class="f-copy">&copy; Aurum 2026 &middot; Required Leverage Calculator</p>
       </div>
     </footer>
   </div>
@@ -130,23 +146,45 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 
 <script>
 (function () {
-  var OZ_PER_LOT = 100;
-  var BINANCE_TIERS = [1, 2, 3, 5, 10, 20, 25, 50, 75, 100, 125];
-  var els = {
-    balance: document.getElementById('balance'),
-    lot: document.getElementById('lot'),
-    price: document.getElementById('price'),
-    calc: document.getElementById('calc'),
-    error: document.getElementById('error'),
-    result: document.getElementById('result'),
-    lev: document.getElementById('lev')
-  };
+  // base:true = USD is the base currency, so position value in USD = lot × contract (price not used)
+  var PAIRS = [
+    {id:'XAUUSD', name:'XAUUSD – Gold',       contract:100,    unit:'oz',    price:4121},
+    {id:'XAGUSD', name:'XAGUSD – Silver',     contract:5000,   unit:'oz',    price:52.78},
+    {id:'BTCUSD', name:'BTCUSD – Bitcoin',    contract:1,      unit:'BTC',   price:76024},
+    {id:'ETHUSD', name:'ETHUSD – Ethereum',   contract:1,      unit:'ETH',   price:2239.5},
+    {id:'EURUSD', name:'EURUSD – Euro',       contract:100000, unit:'EUR',   price:1.1232},
+    {id:'GBPUSD', name:'GBPUSD – Pound',      contract:100000, unit:'GBP',   price:1.3472},
+    {id:'AUDUSD', name:'AUDUSD – Aussie',     contract:100000, unit:'AUD',   price:0.7011},
+    {id:'NZDUSD', name:'NZDUSD – Kiwi',       contract:100000, unit:'NZD',   price:0.5625},
+    {id:'USDJPY', name:'USDJPY – Yen',        contract:100000, unit:'USD',   price:158.25, base:true},
+    {id:'USDCHF', name:'USDCHF – Franc',      contract:100000, unit:'USD',   price:0.8169, base:true},
+    {id:'USDCAD', name:'USDCAD – Canadian $', contract:100000, unit:'USD',   price:1.3963, base:true}
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var els = {balance:$('balance'), pair:$('pair'), lot:$('lot'), contract:$('contract'), price:$('price')};
 
-  // Pure calculation: (lot × 100 × price) ÷ balance
-  function computeLeverage(balance, lot, price) {
-    var ounces = lot * OZ_PER_LOT;
-    var position = ounces * price;
-    return { ounces: ounces, position: position, leverage: position / balance };
+  PAIRS.forEach(function (p) {
+    var o = document.createElement('option'); o.value = p.id; o.textContent = p.name; els.pair.appendChild(o);
+  });
+
+  function current() { return PAIRS.filter(function (p) { return p.id === els.pair.value; })[0]; }
+
+  function loadPair() {
+    var p = current();
+    els.contract.value = p.contract;
+    $('contract-label').textContent = 'Contract Size (' + p.unit + ' per lot)';
+    els.price.value = p.price;
+    els.price.disabled = !!p.base;
+    $('price-hint').textContent = p.base
+      ? 'Not used: USD is the base currency, so position value = lot × contract size.'
+      : 'Snapshot price. Replace with your broker\u2019s live quote.';
+  }
+
+  // Pure calculation
+  function computeLeverage(balance, lot, contract, price, base) {
+    var qty = lot * contract;
+    var position = base ? qty : qty * price;
+    return {qty: qty, position: position, leverage: position / balance};
   }
 
   function parse(el) {
@@ -155,93 +193,62 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
     var n = Number(raw);
     return isFinite(n) ? n : NaN;
   }
-
-  function fmt(n, maxDec) {
-    return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: maxDec });
-  }
-
-  function money(n) {
-    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-  }
-
-  function ceilLeverage(x) {
-    // tolerance for floating point (e.g. 0.10*100*2400/3000 = 8.000000000000002)
-    var eps = 1e-9;
-    return (x < 1 ? 1 : Math.ceil(x - eps));
-  }
-
+  function fmt(n, min, max) { return n.toLocaleString('en-US', {minimumFractionDigits:min, maximumFractionDigits:max}); }
+  function money(n) { return '$' + fmt(n, 0, 2); }
   function leverageText(x) {
-    // Binance futures: leverage is a whole multiple. Round UP — you need at least this.
-    return ceilLeverage(x) + 'X';
+    var d = x >= 100 ? 0 : x >= 10 ? 1 : 2;
+    return fmt(Number(x.toFixed(d)), 0, d) + 'X';
   }
 
-  function showError(msg, badEls) {
-    els.error.textContent = msg;
-    [els.balance, els.lot, els.price].forEach(function (e) {
-      e.setAttribute('aria-invalid', badEls.indexOf(e) !== -1 ? 'true' : 'false');
+  function showError(msg, bad) {
+    $('error').textContent = msg;
+    [els.balance, els.pair, els.lot, els.contract, els.price].forEach(function (e) {
+      e.setAttribute('aria-invalid', bad.indexOf(e) !== -1 ? 'true' : 'false');
     });
-    els.result.hidden = true;
-    if (badEls[0]) badEls[0].focus();
+    $('result').hidden = true;
+    if (bad[0]) bad[0].focus();
   }
 
   function calculate() {
-    var b = parse(els.balance), l = parse(els.lot), p = parse(els.price);
-    var checks = [
-      [els.balance, b, 'Account balance'],
-      [els.lot, l, 'Lot size'],
-      [els.price, p, 'Gold price']
+    var p = current();
+    var fields = [
+      [els.balance, 'Account balance'],
+      [els.lot, 'Lot size'],
+      [els.contract, 'Contract size']
     ];
-    var bad = [], missing = [];
-    checks.forEach(function (c) {
-      if (els[c[0].id].value.trim() === '') { missing.push(c[2]); bad.push(c[0]); }
-      else if (!(c[1] > 0)) { bad.push(c[0]); }
+    if (!p.base) fields.push([els.price, 'Price']);
+    var missing = [], bad = [];
+    fields.forEach(function (f) {
+      var raw = f[0].value.trim();
+      if (raw === '') { missing.push(f[1]); bad.push(f[0]); }
+      else if (!(parse(f[0]) > 0)) { bad.push(f[0]); }
     });
-    if (missing.length) {
-      return showError('Please enter: ' + missing.join(', ') + '.', bad);
-    }
-    if (bad.length) {
-      return showError('Enter a number greater than zero for every field.', bad);
-    }
+    if (missing.length) return showError('Please enter: ' + missing.join(', ') + '.', bad);
+    if (bad.length) return showError('Enter a number greater than zero in every field.', bad);
 
-    var r = computeLeverage(b, l, p);
+    var b = parse(els.balance), l = parse(els.lot), c = parse(els.contract), pr = p.base ? 1 : parse(els.price);
+    var r = computeLeverage(b, l, c, pr, p.base);
     if (!isFinite(r.leverage) || !isFinite(r.position)) {
-      return showError('Those values are too large to calculate. Check your inputs.', [els.balance, els.lot, els.price]);
+      return showError('Those values are too large to calculate. Check your inputs.', [els.balance, els.lot, els.contract, els.price]);
     }
-
     showError('', []);
-    els.lev.textContent = leverageText(r.leverage);
-    document.getElementById('o-bal').textContent = money(b);
-    document.getElementById('o-lot').textContent = fmt(l, 6);
-    document.getElementById('o-price').textContent = money(p);
-    document.getElementById('o-pos').textContent = money(r.position);
-    document.getElementById('o-oz').textContent = r.ounces.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4}) + ' oz';
-
-    // Binance futures: show the next available leverage tier >= required
-    var need = ceilLeverage(r.leverage);
-    var bin = null;
-    for (var i = 0; i < BINANCE_TIERS.length; i++) {
-      if (BINANCE_TIERS[i] >= need) { bin = BINANCE_TIERS[i]; break; }
-    }
-    var binNote = document.getElementById('bin-note');
-    if (bin) {
-      binNote.textContent = 'On Binance futures, next available leverage: ' + bin + 'X.';
-      binNote.hidden = false;
-    } else {
-      binNote.hidden = true;
-    }
-
-    els.result.hidden = false;
+    $('lev').textContent = leverageText(r.leverage);
+    $('o-bal').textContent = money(b);
+    $('o-pair').textContent = p.id;
+    $('o-lot').textContent = fmt(l, 0, 6);
+    $('o-price').textContent = p.base ? fmt(parse(els.price) || p.price, 0, 5) + ' (not used)' : (p.price < 10 ? '$' + fmt(pr, 0, 5) : money(pr));
+    $('o-pos').textContent = money(r.position);
+    $('o-qty').textContent = fmt(r.qty, 2, 4) + ' ' + p.unit;
+    $('result').hidden = false;
   }
 
-  els.calc.addEventListener('click', calculate);
-  [els.balance, els.lot, els.price].forEach(function (el) {
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); calculate(); }
-    });
+  els.pair.addEventListener('change', function () { loadPair(); $('result').hidden = true; showError('', []); });
+  $('calc').addEventListener('click', calculate);
+  [els.balance, els.lot, els.contract, els.price].forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calculate(); } });
   });
 
-  // Expose for testing
-  window.__calc = { computeLeverage: computeLeverage, leverageText: leverageText };
+  loadPair();
 })();
 </script>
 
