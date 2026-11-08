@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#181818">
+  <meta name="description" content="Gold leverage calculator — find the leverage you need for any gold position, plus position value and gold quantity.">
+  <meta property="og:title" content="Gold Leverage Calculator">
+  <meta property="og:description" content="Enter account balance, lot size and gold price — get the leverage you need, position value and gold quantity instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0xshaikh.github.io/calculators/">
+  <title>Gold Leverage Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='10' width='18' height='11' rx='2' fill='%23E8B84B'/%3E%3Crect x='7' y='6' width='10' height='5' rx='1.5' fill='%23C79A3B'/%3E%3Crect x='10' y='3' width='4' height='4' rx='1' fill='%23A87F2E'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="head">
+      <div class="brand">
+        <svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="10" width="18" height="11" rx="2" fill="#E8B84B"/>
+          <rect x="7" y="6" width="10" height="5" rx="1.5" fill="#C79A3B"/>
+          <rect x="10" y="3" width="4" height="4" rx="1" fill="#A87F2E"/>
+        </svg>
+        <h1>Gold Leverage Calculator</h1>
+      </div>
+      <p class="sub">Position value · gold quantity · leverage you need — instantly</p>
+    </header>
+
+    <section class="card">
+      <form id="calc-form" autocomplete="off" novalidate>
+        <div class="field">
+          <label for="bal">Account Balance ($)</label>
+          <input type="number" id="bal" inputmode="decimal" min="0" step="any" placeholder="1000" value="1000">
+        </div>
+        <div class="field">
+          <label for="lot">Desired Lot Size (lots)</label>
+          <input type="number" id="lot" inputmode="decimal" min="0" step="any" placeholder="1.00" value="1.00">
+        </div>
+        <div class="field">
+          <label for="price">Gold Price ($/oz)</label>
+          <input type="number" id="price" inputmode="decimal" min="0" step="any" placeholder="2400" value="2400">
+        </div>
+        <div class="field">
+          <label for="contract">Contract Size (oz per lot)</label>
+          <select id="contract">
+            <option value="100" selected>Standard — 100 oz</option>
+            <option value="50">Mini — 50 oz</option>
+            <option value="10">Micro — 10 oz</option>
+          </select>
+        </div>
+      </form>
+
+      <section id="result" aria-live="polite" hidden>
+        <p class="you">YOU NEED</p>
+        <p class="big"><span id="lev"></span><small>LEVERAGE</small></p>
+        <dl>
+          <div><dt>Account Balance</dt><dd id="o-bal"></dd></div>
+          <div><dt>Desired Lot Size</dt><dd id="o-lot"></dd></div>
+          <div><dt>Gold Price</dt><dd id="o-price"></dd></div>
+          <div><dt>Position Value</dt><dd id="o-pos"></dd></div>
+          <div><dt>Gold Quantity</dt><dd id="o-oz"></dd></div>
+        </dl>
+        <p class="note" id="o-note"></p>
+      </section>
+
+      <p class="empty" id="empty">Fill the fields above — the leverage you need will show here.</p>
+    </section>
+
+    <footer class="foot">
+      <p>1 standard lot = 100 oz · Margin and leverage are estimates, not financial advice.</p>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
