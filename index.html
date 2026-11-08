@@ -105,15 +105,10 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
           <label for="pair">Pair</label>
           <select id="pair"></select>
         </div>
-        <div class="row">
-          <div class="field">
-            <label for="lot">Lot Size</label>
-            <input id="lot" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter lot size">
-          </div>
-          <div class="field">
-            <label for="contract" id="contract-label">Contract Size</label>
-            <input id="contract" type="number" inputmode="decimal" min="0" step="any">
-          </div>
+        <div class="field">
+          <label for="lot">Lot Size</label>
+          <input id="lot" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter lot size">
+          <p class="hint" id="lot-hint"></p>
         </div>
         <div class="field">
           <label for="price">Current Price (USD)</label>
@@ -173,7 +168,7 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
     {id:'XPDUSD', name:'XPDUSD – Palladium',   contract:100,    unit:'oz',    price:1020}
   ];
   var $ = function (id) { return document.getElementById(id); };
-  var els = {balance:$('balance'), pair:$('pair'), lot:$('lot'), contract:$('contract'), price:$('price')};
+  var els = {balance:$('balance'), pair:$('pair'), lot:$('lot'), price:$('price')};
 
   PAIRS.forEach(function (p) {
     var o = document.createElement('option'); o.value = p.id; o.textContent = p.name; els.pair.appendChild(o);
@@ -183,8 +178,7 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 
   function loadPair() {
     var p = current();
-    els.contract.value = p.contract;
-    $('contract-label').textContent = 'Contract Size (' + p.unit + ' per lot)';
+    $('lot-hint').textContent = '1 lot = ' + p.contract + ' ' + p.unit;
     els.price.value = p.price;
     els.price.disabled = !!p.base;
     $('price-hint').textContent = p.base
@@ -214,7 +208,7 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 
   function showError(msg, bad) {
     $('error').textContent = msg;
-    [els.balance, els.pair, els.lot, els.contract, els.price].forEach(function (e) {
+    [els.balance, els.pair, els.lot, els.price].forEach(function (e) {
       e.setAttribute('aria-invalid', bad.indexOf(e) !== -1 ? 'true' : 'false');
     });
     $('result').hidden = true;
@@ -225,8 +219,7 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
     var p = current();
     var fields = [
       [els.balance, 'Account balance'],
-      [els.lot, 'Lot size'],
-      [els.contract, 'Contract size']
+      [els.lot, 'Lot size']
     ];
     if (!p.base) fields.push([els.price, 'Price']);
     var missing = [], bad = [];
@@ -238,10 +231,10 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
     if (missing.length) return showError('Please enter: ' + missing.join(', ') + '.', bad);
     if (bad.length) return showError('Enter a number greater than zero in every field.', bad);
 
-    var b = parse(els.balance), l = parse(els.lot), c = parse(els.contract), pr = p.base ? 1 : parse(els.price);
+    var b = parse(els.balance), l = parse(els.lot), c = p.contract, pr = p.base ? 1 : parse(els.price);
     var r = computeLeverage(b, l, c, pr, p.base);
     if (!isFinite(r.leverage) || !isFinite(r.position)) {
-      return showError('Those values are too large to calculate. Check your inputs.', [els.balance, els.lot, els.contract, els.price]);
+      return showError('Those values are too large to calculate. Check your inputs.', [els.balance, els.lot, els.price]);
     }
     showError('', []);
     $('lev').textContent = leverageText(r.leverage);
@@ -256,7 +249,7 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 
   els.pair.addEventListener('change', function () { loadPair(); $('result').hidden = true; showError('', []); });
   $('calc').addEventListener('click', calculate);
-  [els.balance, els.lot, els.contract, els.price].forEach(function (el) {
+  [els.balance, els.lot, els.price].forEach(function (el) {
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calculate(); } });
   });
 
