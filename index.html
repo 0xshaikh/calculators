@@ -1,79 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#181818">
-  <meta name="description" content="Gold leverage calculator — find the leverage you need for any gold position, plus position value and gold quantity.">
-  <meta property="og:title" content="Gold Leverage Calculator">
-  <meta property="og:description" content="Enter account balance, lot size and gold price — get the leverage you need, position value and gold quantity instantly.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://0xshaikh.github.io/calculators/">
-  <title>Gold Leverage Calculator</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='10' width='18' height='11' rx='2' fill='%23E8B84B'/%3E%3Crect x='7' y='6' width='10' height='5' rx='1.5' fill='%23C79A3B'/%3E%3Crect x='10' y='3' width='4' height='4' rx='1' fill='%23A87F2E'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e1420">
+<meta name="description" content="XAUUSD leverage calculator — find the leverage you need for any gold position.">
+<meta property="og:title" content="XAUUSD Leverage Calculator">
+<meta property="og:description" content="Enter account balance, lot size and gold price — get the leverage you need, position value and gold quantity.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://0xshaikh.github.io/calculators/">
+<title>XAUUSD Leverage Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='10' width='18' height='11' rx='2' fill='%23e8c26a'/%3E%3Crect x='7' y='6' width='10' height='5' rx='1.5' fill='%23c9a34e'/%3E%3Crect x='10' y='3' width='4' height='4' rx='1' fill='%23a8842f'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0e1420;--panel:#151d2e;--line:#26324a;--text:#f4f6fb;--muted:#8d9ab3;
+  --blue:#2f7bff;--blue-hi:#4d8fff;--gold:#e8c26a;--err:#ff7a7a;
+  --curve:cubic-bezier(0.22,1,0.36,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"Manrope","Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:clamp(20px,5vw,64px) 16px;
+  -webkit-font-smoothing:antialiased;
+}
+main{width:100%;max-width:480px}
+h1{font-size:clamp(1.15rem,3.6vw,1.4rem);font-weight:700;letter-spacing:.04em;margin:0 0 24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(20px,5vw,32px)}
+label{display:block;font-size:.9rem;color:var(--muted);margin:0 0 6px}
+.field{margin-bottom:18px}
+input{
+  width:100%;font:inherit;font-size:1.1rem;color:var(--text);
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;
+  padding:14px 14px;min-height:52px;
+  transition:border-color .25s var(--curve),box-shadow .25s var(--curve);
+}
+input::placeholder{color:#55627c}
+input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,123,255,0.18)}
+input[aria-invalid="true"]{border-color:var(--err)}
+button{
+  width:100%;min-height:54px;margin-top:4px;font:inherit;font-weight:700;font-size:1rem;
+  letter-spacing:.03em;color:#fff;background:var(--blue);border:0;border-radius:10px;cursor:pointer;
+  transition:background .25s var(--curve),transform .1s var(--curve);
+}
+button:hover{background:var(--blue-hi)}
+button:active{transform:scale(.99)}
+button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+#error{color:var(--err);font-size:.92rem;min-height:1.3em;margin:0 0 12px}
+#error:empty{display:none}
+#result{margin-top:28px;padding-top:28px;border-top:1px solid var(--line);text-align:center;animation:in .5s var(--curve)}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#result[hidden]{display:none}
+.you{color:var(--muted);font-size:1rem;margin:0}
+.big{font-size:clamp(3.4rem,17vw,5.6rem);font-weight:700;letter-spacing:-0.02em;line-height:1.05;margin:6px 0 0;color:var(--gold);overflow-wrap:anywhere}
+.big small{display:block;font-size:clamp(1rem,4.5vw,1.4rem);font-weight:700;color:var(--text);letter-spacing:.08em;margin-top:4px}
+dl{margin:26px 0 0;text-align:left;font-size:.95rem}
+dl div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+dl div:last-child{border-bottom:0}
+dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.note{color:var(--muted);font-size:.78rem;line-height:1.5;margin:22px 4px 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <header class="head">
-      <div class="brand">
-        <svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="3" y="10" width="18" height="11" rx="2" fill="#E8B84B"/>
-          <rect x="7" y="6" width="10" height="5" rx="1.5" fill="#C79A3B"/>
-          <rect x="10" y="3" width="4" height="4" rx="1" fill="#A87F2E"/>
-        </svg>
-        <h1>Gold Leverage Calculator</h1>
-      </div>
-      <p class="sub">Position value · gold quantity · leverage you need — instantly</p>
-    </header>
+<main>
+  <h1>XAUUSD leverage calculator</h1>
+  <div class="card">
+    <div class="field">
+      <label for="balance">Account Balance (USD)</label>
+      <input id="balance" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter balance">
+    </div>
+    <div class="field">
+      <label for="lot">Desired Lot Size</label>
+      <input id="lot" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter lot size">
+    </div>
+    <div class="field">
+      <label for="price">Current Gold Price (USD)</label>
+      <input id="price" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter gold price">
+    </div>
+    <p id="error" role="alert"></p>
+    <button id="calc" type="button">Calculate required leverage</button>
 
-    <section class="card">
-      <form id="calc-form" autocomplete="off" novalidate>
-        <div class="field">
-          <label for="bal">Account Balance ($)</label>
-          <input type="number" id="bal" inputmode="decimal" min="0" step="any" placeholder="1000" value="1000">
-        </div>
-        <div class="field">
-          <label for="lot">Desired Lot Size (lots)</label>
-          <input type="number" id="lot" inputmode="decimal" min="0" step="any" placeholder="1.00" value="1.00">
-        </div>
-        <div class="field">
-          <label for="price">Gold Price ($/oz)</label>
-          <input type="number" id="price" inputmode="decimal" min="0" step="any" placeholder="2400" value="2400">
-        </div>
-        <div class="field">
-          <label for="contract">Contract Size (oz per lot)</label>
-          <select id="contract">
-            <option value="100" selected>Standard — 100 oz</option>
-            <option value="50">Mini — 50 oz</option>
-            <option value="10">Micro — 10 oz</option>
-          </select>
-        </div>
-      </form>
-
-      <section id="result" aria-live="polite" hidden>
-        <p class="you">YOU NEED</p>
-        <p class="big"><span id="lev"></span><small>LEVERAGE</small></p>
-        <dl>
-          <div><dt>Account Balance</dt><dd id="o-bal"></dd></div>
-          <div><dt>Desired Lot Size</dt><dd id="o-lot"></dd></div>
-          <div><dt>Gold Price</dt><dd id="o-price"></dd></div>
-          <div><dt>Position Value</dt><dd id="o-pos"></dd></div>
-          <div><dt>Gold Quantity</dt><dd id="o-oz"></dd></div>
-        </dl>
-        <p class="note" id="o-note"></p>
-      </section>
-
-      <p class="empty" id="empty">Fill the fields above — the leverage you need will show here.</p>
+    <section id="result" aria-live="polite" hidden>
+      <p class="you">YOU NEED</p>
+      <p class="big"><span id="lev"></span><small>LEVERAGE</small></p>
+      <dl>
+        <div><dt>Account Balance</dt><dd id="o-bal"></dd></div>
+        <div><dt>Desired Lot Size</dt><dd id="o-lot"></dd></div>
+        <div><dt>Gold Price</dt><dd id="o-price"></dd></div>
+        <div><dt>Position Value</dt><dd id="o-pos"></dd></div>
+        <div><dt>Gold Quantity</dt><dd id="o-oz"></dd></div>
+      </dl>
     </section>
+  </div>
+  <p class="note">Theoretical estimate assuming your entire balance is available as initial margin, and 1.00 lot = 100 oz of gold. It does not guarantee a broker will allow this leverage or accept the order. Actual margin requirements, leverage tiers, fees, spread, maintenance margin and liquidation rules vary by broker.</p>
+</main>
 
-    <footer class="foot">
-      <p>1 standard lot = 100 oz · Margin and leverage are estimates, not financial advice.</p>
-    </footer>
-  </main>
-  <script src="app.js"></script>
+<script>
+(function () {
+  var OZ_PER_LOT = 100;
+  var els = {
+    balance: document.getElementById('balance'),
+    lot: document.getElementById('lot'),
+    price: document.getElementById('price'),
+    calc: document.getElementById('calc'),
+    error: document.getElementById('error'),
+    result: document.getElementById('result'),
+    lev: document.getElementById('lev')
+  };
+
+  // Pure calculation: (lot × 100 × price) ÷ balance
+  function computeLeverage(balance, lot, price) {
+    var ounces = lot * OZ_PER_LOT;
+    var position = ounces * price;
+    return { ounces: ounces, position: position, leverage: position / balance };
+  }
+
+  function parse(el) {
+    var raw = el.value.trim();
+    if (raw === '') return NaN;
+    var n = Number(raw);
+    return isFinite(n) ? n : NaN;
+  }
+
+  function fmt(n, maxDec) {
+    return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: maxDec });
+  }
+
+  function money(n) {
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+
+  function leverageText(x) {
+    var d = x >= 100 ? 0 : x >= 10 ? 1 : 2;
+    // round, then strip trailing zeros (10 -> "10", 12.5 -> "12.5")
+    var rounded = Number(x.toFixed(d));
+    return fmt(rounded, d) + 'X';
+  }
+
+  function showError(msg, badEls) {
+    els.error.textContent = msg;
+    [els.balance, els.lot, els.price].forEach(function (e) {
+      e.setAttribute('aria-invalid', badEls.indexOf(e) !== -1 ? 'true' : 'false');
+    });
+    els.result.hidden = true;
+    if (badEls[0]) badEls[0].focus();
+  }
+
+  function calculate() {
+    var b = parse(els.balance), l = parse(els.lot), p = parse(els.price);
+    var checks = [
+      [els.balance, b, 'Account balance'],
+      [els.lot, l, 'Lot size'],
+      [els.price, p, 'Gold price']
+    ];
+    var bad = [], missing = [];
+    checks.forEach(function (c) {
+      if (els[c[0].id].value.trim() === '') { missing.push(c[2]); bad.push(c[0]); }
+      else if (!(c[1] > 0)) { bad.push(c[0]); }
+    });
+    if (missing.length) {
+      return showError('Please enter: ' + missing.join(', ') + '.', bad);
+    }
+    if (bad.length) {
+      return showError('Enter a number greater than zero for every field.', bad);
+    }
+
+    var r = computeLeverage(b, l, p);
+    if (!isFinite(r.leverage) || !isFinite(r.position)) {
+      return showError('Those values are too large to calculate. Check your inputs.', [els.balance, els.lot, els.price]);
+    }
+
+    showError('', []);
+    els.lev.textContent = leverageText(r.leverage);
+    document.getElementById('o-bal').textContent = money(b);
+    document.getElementById('o-lot').textContent = fmt(l, 6);
+    document.getElementById('o-price').textContent = money(p);
+    document.getElementById('o-pos').textContent = money(r.position);
+    document.getElementById('o-oz').textContent = r.ounces.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4}) + ' oz';
+    els.result.hidden = false;
+  }
+
+  els.calc.addEventListener('click', calculate);
+  [els.balance, els.lot, els.price].forEach(function (el) {
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); calculate(); }
+    });
+  });
+
+  // Expose for testing
+  window.__calc = { computeLeverage: computeLeverage, leverageText: leverageText };
+})();
+</script>
 </body>
 </html>
