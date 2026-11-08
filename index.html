@@ -140,9 +140,15 @@ dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-n
     return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   }
 
+  function ceilLeverage(x) {
+    // tolerance for floating point (e.g. 0.10*100*2400/3000 = 8.000000000000002)
+    var eps = 1e-9;
+    return (x < 1 ? 1 : Math.ceil(x - eps));
+  }
+
   function leverageText(x) {
     // Binance futures: leverage is a whole multiple. Round UP — you need at least this.
-    return (x < 1 ? 1 : Math.ceil(x)) + 'X';
+    return ceilLeverage(x) + 'X';
   }
 
   function showError(msg, badEls) {
@@ -187,7 +193,7 @@ dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-n
     document.getElementById('o-oz').textContent = r.ounces.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4}) + ' oz';
 
     // Binance futures: show the next available leverage tier >= required
-    var need = r.leverage < 1 ? 1 : Math.ceil(r.leverage);
+    var need = ceilLeverage(r.leverage);
     var bin = null;
     for (var i = 0; i < BINANCE_TIERS.length; i++) {
       if (BINANCE_TIERS[i] >= need) { bin = BINANCE_TIERS[i]; break; }
