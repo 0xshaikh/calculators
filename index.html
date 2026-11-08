@@ -65,6 +65,7 @@ dl div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-
 dl div:last-child{border-bottom:0}
 dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
 .note{color:var(--muted);font-size:.78rem;line-height:1.5;margin:22px 4px 0}
+#bin-note{color:var(--gold);font-weight:600;font-size:.82rem;margin-top:14px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -97,6 +98,7 @@ dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-n
         <div><dt>Position Value</dt><dd id="o-pos"></dd></div>
         <div><dt>Gold Quantity</dt><dd id="o-oz"></dd></div>
       </dl>
+      <p class="note" id="bin-note" hidden></p>
     </section>
   </div>
   <p class="note">Theoretical estimate assuming your entire balance is available as initial margin, and 1.00 lot = 100 oz of gold. It does not guarantee a broker will allow this leverage or accept the order. Actual margin requirements, leverage tiers, fees, spread, maintenance margin and liquidation rules vary by broker.</p>
@@ -105,6 +107,7 @@ dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-n
 <script>
 (function () {
   var OZ_PER_LOT = 100;
+  var BINANCE_TIERS = [1, 2, 3, 5, 10, 20, 25, 50, 75, 100, 125];
   var els = {
     balance: document.getElementById('balance'),
     lot: document.getElementById('lot'),
@@ -138,10 +141,8 @@ dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-n
   }
 
   function leverageText(x) {
-    var d = x >= 100 ? 0 : x >= 10 ? 1 : 2;
-    // round, then strip trailing zeros (10 -> "10", 12.5 -> "12.5")
-    var rounded = Number(x.toFixed(d));
-    return fmt(rounded, d) + 'X';
+    // Binance futures: leverage is a whole multiple. Round UP — you need at least this.
+    return (x < 1 ? 1 : Math.ceil(x)) + 'X';
   }
 
   function showError(msg, badEls) {
@@ -184,6 +185,21 @@ dt{color:var(--muted)}dd{margin:0;font-weight:600;font-variant-numeric:tabular-n
     document.getElementById('o-price').textContent = money(p);
     document.getElementById('o-pos').textContent = money(r.position);
     document.getElementById('o-oz').textContent = r.ounces.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4}) + ' oz';
+
+    // Binance futures: show the next available leverage tier >= required
+    var need = r.leverage < 1 ? 1 : Math.ceil(r.leverage);
+    var bin = null;
+    for (var i = 0; i < BINANCE_TIERS.length; i++) {
+      if (BINANCE_TIERS[i] >= need) { bin = BINANCE_TIERS[i]; break; }
+    }
+    var binNote = document.getElementById('bin-note');
+    if (bin) {
+      binNote.textContent = 'On Binance futures, next available leverage: ' + bin + 'X.';
+      binNote.hidden = false;
+    } else {
+      binNote.hidden = true;
+    }
+
     els.result.hidden = false;
   }
 
