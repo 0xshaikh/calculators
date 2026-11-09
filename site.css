@@ -192,3 +192,9 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 .shot{margin:calc(22*var(--u)) auto;text-align:center}
 .shot img{max-width:min(340px,100%);height:auto;border-radius:12px;border:1px solid var(--line);display:block;margin:0 auto}
 .shot figcaption{font-size:calc(13*var(--u));color:var(--mid);line-height:1.5;max-width:calc(420*var(--u));margin:calc(10*var(--u)) auto 0}
+
+/* ===== TABLE SCROLL (contract-size, blog tables) ===== */
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 calc(22*var(--u))}
+.tbl-scroll table{min-width:480px;margin-bottom:0}
+.tbl-scroll th,.tbl-scroll td{white-space:nowrap}
+@media (max-width:460px){.tbl-scroll table{min-width:440px}}
