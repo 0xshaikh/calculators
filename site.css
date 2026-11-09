@@ -103,7 +103,7 @@ dd .neg{color:#f87171}
 .post p{font-size:calc(14*var(--u));line-height:1.55;color:var(--mid);flex:1}
 .post .read{font-size:calc(13*var(--u));color:var(--peach);text-decoration:underline;text-underline-offset:3px}
 /* ===== CALLOUT ===== */
-.callout{border:1px solid rgba(248,150,64,.25);background:rgba(248,150,64,.06);border-radius:calc(8*var(--u));padding:calc(18*var(--u)) calc(20*var(--u));margin:0 0 calc(24*var(--u))}
+.callout{border:1px solid rgba(248,150,64,.25);background:#1f0f08;position:relative;z-index:1;border-radius:calc(8*var(--u));padding:calc(18*var(--u)) calc(20*var(--u));margin:0 0 calc(24*var(--u))}
 .callout .t{font-size:calc(13*var(--u));font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:calc(6*var(--u))}
 .callout p{font-size:calc(14.5*var(--u));line-height:1.6;color:#f2e2cf}
 .callout p:last-child{margin:0}
