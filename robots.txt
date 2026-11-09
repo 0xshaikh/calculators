@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://0xshaikh.github.io/calculators/sitemap.xml

@@ -2,51 +2,62 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#050302">
-<meta name="description" content="How the LotCal leverage calculator works.">
-<title>How it Works — LotCal</title>
+<meta name="description" content="The exact formula LotCal uses — quantity, position value, required leverage and P&L per $1 move — plus the assumptions and limits behind it.">
+<meta property="og:title" content="How It Works — LotCal">
+<meta property="og:description" content="The formula, assumptions and limits behind the LotCal calculator.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://0xshaikh.github.io/calculators/how-it-works.html">
+<title>How It Works — LotCal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f89640'/%3E%3Cstop offset='1' stop-color='%23e26a18'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='22' height='22' rx='6' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%231b0d05' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4.5' width='12' height='15' rx='2'/%3E%3Crect x='8' y='7' width='8' height='3.4' rx='0.8'/%3E%3C/g%3E%3Cg fill='%231b0d05'%3E%3Ccircle cx='8.6' cy='13.2' r='0.9'/%3E%3Ccircle cx='12' cy='13.2' r='0.9'/%3E%3Ccircle cx='15.4' cy='13.2' r='0.9'/%3E%3Ccircle cx='8.6' cy='16.3' r='0.9'/%3E%3Ccircle cx='12' cy='16.3' r='0.9'/%3E%3Ccircle cx='15.4' cy='16.3' r='0.9'/%3E%3C/g%3E%3C/svg%3E">
-<style>
-:root{--cream:#fbefe2;--mid:#d9c3ad;--line:rgba(255,214,170,.14);--glass:rgba(34,18,8,.78);--amber:#f89640;--peach:#ffd6aa;--ink:#1b0d05}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#050302}
-body{color:var(--cream);font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100svh}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:760px;margin:0 auto;padding:48px 20px 64px}
-.nav{display:flex;align-items:center;gap:12px;margin-bottom:32px}
-.brand{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:600;color:var(--cream);transition:color .2s}
-.brand:hover{color:var(--peach)}
-.brand-ico{width:28px;height:28px;flex:none}
-.card{background:var(--glass);border:1px solid rgba(255,190,120,.14);border-radius:12px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 20px 60px rgba(0,0,0,.45);padding:36px 40px;text-align:center}
-h1{font-size:30px;font-weight:600;letter-spacing:-.02em;margin-bottom:16px}
-p{font-size:15.5px;line-height:1.7;color:#f0dcc6}
-.soon{font-size:14px;color:var(--mid);margin-top:10px}
-.back{display:inline-block;margin-top:32px;font-size:14px;color:var(--peach);text-decoration:underline;text-underline-offset:3px}
-@media (max-width:460px){.wrap{padding:32px 16px 48px}.card{padding:26px 20px}h1{font-size:25px}}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
-<body>
-<div class="wrap">
-  <nav class="nav">
-    <a class="brand" href="index.html" aria-label="LotCal calculator">
-      <svg class="brand-ico" viewBox="0 0 24 24" aria-hidden="true">
-        <defs><linearGradient id="zg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f89640"/><stop offset="1" stop-color="#e26a18"/></linearGradient></defs>
-        <rect x="1" y="1" width="22" height="22" rx="6" fill="url(#zg)"/>
-        <g fill="none" stroke="#1b0d05" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4.5" width="12" height="15" rx="2"/><rect x="8" y="7" width="8" height="3.4" rx="0.8"/></g><g fill="#1b0d05"><circle cx="8.6" cy="13.2" r="0.9"/><circle cx="12" cy="13.2" r="0.9"/><circle cx="15.4" cy="13.2" r="0.9"/><circle cx="8.6" cy="16.3" r="0.9"/><circle cx="12" cy="16.3" r="0.9"/><circle cx="15.4" cy="16.3" r="0.9"/></g>
-      </svg>
-      <span>LotCal</span>
-    </a>
-  </nav>
-  <main class="card">
-    <h1>How it Works</h1>
-    <p>Content coming soon.</p>
-    <p class="soon">This page will explain the calculator step by step. The content will be added soon.</p>
-  </main>
-  <a class="back" href="index.html">&larr; Back to calculator</a>
+<body data-page="how-it-works" data-base="" data-pop="1" data-cookie="1">
+<main class="wrap">
+  <div class="content">
+    <div class="stack narrow">
+
+<p class="eyebrow">Methodology</p>
+<h1>How It Works</h1>
+<p class="lede">The exact formula, the assumptions behind it, and what LotCal deliberately does not do.</p>
+<div class="card">
+  <div class="prose">
+    <h2>The formula</h2>
+    <p><code>quantity = lot size &times; contract size</code><br>
+    <code>position value = quantity &times; price</code> (for USD-quote pairs)<br>
+    <code>position value = quantity</code> (for USD-base pairs — price not used)<br>
+    <code>required leverage = position value &divide; account balance</code><br>
+    <code>P&amp;L per $1 move = lot size &times; contract size</code> (USD-quote pairs)</p>
+    <p>For USD-base pairs (USDJPY, USDCHF, USDCAD) the position value in USD is lot &times; contract size, so the price field is disabled and no P&amp;L per $1 is shown (a $1 move in JPY isn&rsquo;t a $1 move in USD).</p>
+
+    <h2>Assumptions</h2>
+    <ul>
+      <li><strong>Contract sizes</strong> are common broker defaults: 1 lot gold/platinum/palladium = 100 oz, silver = 5,000 oz, forex = 100,000 units, crypto = 1 coin.</li>
+      <li><strong>Margin:</strong> your entire balance is assumed available as initial margin. Real brokers reserve more (margin calls, maintenance margin), so the real requirement is higher.</li>
+      <li><strong>Prices</strong> are reference snapshots (4&ndash;6 Nov 2026) and are not live — replace them with your broker&rsquo;s quote.</li>
+      <li><strong>No fees</strong> — spread, commission, swap and funding are ignored.</li>
+    </ul>
+
+    <h2>Limits</h2>
+    <ul>
+      <li>It does not know your broker&rsquo;s margin tiers, leverage cap, spread or liquidation rules.</li>
+      <li>It does not predict price, place trades or hold funds.</li>
+      <li>Results are estimates for education, not a guarantee a broker will accept the order.</li>
+      <li>It is not financial advice.</li>
+    </ul>
+
+    <h2>What it is not</h2>
+    <p>LotCal is not a broker, dealer, investment advisor or trading platform, and is not regulated by any financial authority. See the <a href="disclaimer.html">Disclaimer</a>.</p>
+  </div>
 </div>
+
+    </div>
+  </div>
+</main>
+<script src="site.js"></script>
 </body>
 </html>

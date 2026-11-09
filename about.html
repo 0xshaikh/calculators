@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050302">
+<meta name="description" content="LotCal is a free, honest leverage calculator for forex, metals and crypto futures, built by Anas Shaikh. Learn why it exists and how it works.">
+<meta property="og:title" content="About — LotCal">
+<meta property="og:description" content="What LotCal is, why it was built, and how it calculates leverage and P&L.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://0xshaikh.github.io/calculators/about.html">
+<title>About — LotCal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f89640'/%3E%3Cstop offset='1' stop-color='%23e26a18'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='22' height='22' rx='6' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%231b0d05' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4.5' width='12' height='15' rx='2'/%3E%3Crect x='8' y='7' width='8' height='3.4' rx='0.8'/%3E%3C/g%3E%3Cg fill='%231b0d05'%3E%3Ccircle cx='8.6' cy='13.2' r='0.9'/%3E%3Ccircle cx='12' cy='13.2' r='0.9'/%3E%3Ccircle cx='15.4' cy='13.2' r='0.9'/%3E%3Ccircle cx='8.6' cy='16.3' r='0.9'/%3E%3Ccircle cx='12' cy='16.3' r='0.9'/%3E%3Ccircle cx='15.4' cy='16.3' r='0.9'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="site.css">
+</head>
+<body data-page="about" data-base="" data-pop="1" data-cookie="1">
+<main class="wrap">
+  <div class="content">
+    <div class="stack narrow">
+
+<p class="eyebrow">About</p>
+<h1>What is LotCal?</h1>
+<p class="lede">A free, honest leverage calculator for people who trade forex, metals and crypto futures — built because I kept getting the arithmetic wrong.</p>
+<div class="card">
+  <div class="prose">
+    <h2>LotCal kya hai</h2>
+    <p>LotCal is a small, free, open calculator that answers one question I asked myself far too often: <strong>&ldquo;if I open this lot size on this pair with this account, what leverage am I actually using &mdash; and how much do I win or lose per $1 of price movement?&rdquo;</strong> You enter your balance, pick a pair, type a lot size and a price, and it tells you the position value, the quantity in oz / BTC / EUR, the required leverage, and the live P&amp;L per $1 move in green and red.</p>
+
+    <h2>Why I built it</h2>
+    <p>I trade futures and I kept guessing. &ldquo;Is 0.01 lot of gold a dollar a point? Two?&rdquo; I&rsquo;d do the mental math, get it wrong more often than I&rsquo;d like, and find out the real number after the trade was already open. LotCal is the check I wanted before clicking buy or sell. I made it public because the same confusion is everywhere &mdash; and because a tool that removes guesswork before a trade is worth sharing.</p>
+
+    <h2>Who&rsquo;s behind it</h2>
+    <p>I&rsquo;m <strong>Anas Shaikh</strong>. I&rsquo;m self-taught, curious about markets and automation, and I build small tools that answer real questions. LotCal is one of them. It&rsquo;s not a company and it&rsquo;s not a signal service &mdash; it&rsquo;s one person&rsquo;s calculator, published for anyone who wants to size a position before risking money.</p>
+
+    <h2>How it works</h2>
+    <p>LotCal uses the standard futures formula: <code>position value = lot size &times; contract size &times; price</code>, and <code>leverage = position value &divide; balance</code>. Contract sizes are common broker defaults &mdash; 1 lot of gold = 100 oz, 1 lot of EURUSD = 100,000 units, 1 lot of BTC = 1 BTC. Prices are reference snapshots, so replace them with your broker&rsquo;s live quote. It is deliberately conservative: it assumes your whole balance is available as initial margin, so the leverage you see is the maximum, not a promise.</p>
+
+    <h2>What it is not</h2>
+    <p>LotCal is <strong>not financial advice</strong>, not a recommendation, and not a broker. It does not execute trades, hold funds, or know your broker&rsquo;s margin tiers, fees or liquidation rules. It just does the arithmetic honestly and leaves the judgement to you.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</main>
+<script src="site.js"></script>
+</body>
+</html>
