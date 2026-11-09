@@ -158,13 +158,10 @@
     document.body.appendChild(disc);
     document.body.appendChild(ck);
 
-    var discSeen = localStorage.getItem('lotcal_disc');
-    var cookieSeen = localStorage.getItem('lotcal_cookie');
+    function showDisc() { if (popOn) disc.hidden = false; }
+    function showCookie() { if (cookieOn) ck.hidden = false; }
 
-    function showDisc() { if (popOn && !discSeen) disc.hidden = false; }
-    function showCookie() { if (cookieOn && !cookieSeen) ck.hidden = false; }
-
-    if (cookieOn && !cookieSeen) {
+    if (cookieOn) {
       showCookie();
       document.getElementById('cookie-all').addEventListener('click', function () {
         localStorage.setItem('lotcal_cookie', 'all'); ck.hidden = true; showDisc();
