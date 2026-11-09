@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#050302"><meta name="description" content="The arithmetic behind leverage risk — how a small adverse move at high leverage can take your whole margin."><meta property="og:title" content="The Real Risk of High Leverage: Why 1% Can Wipe You Out — LotCal"><meta property="og:description" content="The arithmetic behind leverage risk — how a small adverse move at high leverage can take your whole margin."><meta property="og:type" content="website"><title>The Real Risk of High Leverage: Why 1% Can Wipe You Out — LotCal</title><link rel="stylesheet" href="../site.css"></head><body data-page="blog" data-base="../" data-pop="0"><main class="wrap"><div class="content"><div class="stack narrow"><p class="eyebrow">Risk</p><h1>The Real Risk of High Leverage: Why 1% Can Wipe You Out</h1><div class="meta"><span>LotCal Blog</span><span class="dot"></span><span>6 min read</span></div><div class="card"><div class="prose">
+<h2>The One Number That Matters</h2>
+<p>There is a single relationship that explains most of the risk of leveraged trading. If your leverage is 1:100, then a 1% move against you is worth about 100% of your margin. If your leverage is 1:50, a 2% move against you does it. At 1:20, it takes a 5% move.</p>
+<p>The rule is simple:</p>
+<p><code>Adverse move that wipes margin = 1 ÷ leverage</code></p>
+<p>At 1:100, that is 1/100, or 1%. At 1:200, it is 0.5%. At 1:10, it is 10%. The higher the leverage, the smaller the price move that ends the trade. There is no way around this arithmetic.</p>
+<h2>Walking Through the Math</h2>
+<p>Let us use clean numbers so you can see it yourself.</p>
+<p>You have $1,000 in your account. You choose leverage of 1:100. Your position is worth:</p>
+<p><code>$1,000 × 100 = $100,000</code></p>
+<p>The price moves against you by 1%. The loss on the position is:</p>
+<p><code>$100,000 × 0.01 = $1,000</code></p>
+<p>Your account is at zero. One percent. That is a normal daily swing for many assets. It is not a crash and it is not a black swan. It is an ordinary move that happens all the time.</p>
+<p>Now imagine the same $1,000 at 1:20 leverage. Your position is $20,000. A 1% adverse move costs $200, leaving you with $800. You have room. To lose the whole margin, the price needs to move 5% against you — a bigger, less common move, but still one that happens regularly in volatile markets.</p>
+<h2>Why This Surprises Beginners</h2>
+<p>Most people who get hurt by leverage do not lose because they were wrong about direction. They lose because they were wrong about size. They picked a high leverage number because it was available and it looked like free buying power, and they did not stop to ask how much of a price move they could actually survive.</p>
+<p>Here is the uncomfortable truth: at high leverage, you are not betting on the market going up or down. You are betting that the market does not move against you by more than a tiny fraction. A 1% adverse move at 1:100 ends you. Many assets can do that in a day, sometimes in an hour, and futures especially can do it in minutes.</p>
+<p>This is why a 1:100 trade is not "riskier" in some vague emotional sense. It is mathematically much more likely to reach its stop than a 1:10 trade, because the distance to zero is so much shorter.</p>
+<h2>Higher Leverage Means Less Room for Error</h2>
+<p>Every trader is wrong sometimes. The question is whether being wrong is survivable. Leverage decides that.</p>
+<p>At 1:10, you have a 10% buffer. A normal market swing might use a quarter of it. You can be wrong, reassess, and adjust. At 1:50, the buffer is 2%. At 1:100, it is 1%. There is very little room to be wrong, and almost no room to recover.</p>
+<p>The trade-off is also asymmetrical in a way that is easy to miss. If the market moves in your favour, you can make a large percentage return quickly — but you never control how far it goes in your favour, and the position must be closed eventually. If the market moves against you, the loss is bounded by your margin, and that bound arrives very fast at high leverage. You are exposed to a large downside that arrives almost instantly, for the chance of a gain that arrives a bit more slowly.</p>
+<h2>A More Realistic Way to Think About Risk</h2>
+<p>The practical question is not "what leverage can I get?" It is "how much of my account am I willing to risk on this one trade, and what price move would that correspond to?"</p>
+<p>If you want to risk 2% of your account and your stop is 1% away from entry, then your position should be sized so that a 1% move costs you 2% of your account. That is a leverage of 2x, not 100x. Position sizing is the tool for this, and it is far more useful than picking a leverage number because the broker offered it.</p>
+<p>Many traders who have been around a while use leverage of 5x or 10x, and sometimes far less. They understand that the goal is not to make the biggest trade possible. The goal is to stay in the game long enough for their edge — whatever it is — to show up.</p>
+<h2>The Takeaway</h2>
+<p>High leverage is not a mistake, and using it does not make you a bad trader. But it is a choice with a precise, calculable cost: it shrinks the distance between your entry price and the price at which your trade ends. Before you use it, know the number 1 divided by your leverage, and decide whether you can live with a move of that size happening at any moment.</p>
+<p>If you want to size positions around the risk you can actually handle rather than the leverage you were offered, a position size calculator is the place to start — see the <a href="../index.html">LotCal calculator</a> page.</p>
+</div></div><p style="margin-top:24px"><a class="btnline" href="../blog.html">&larr; All articles</a></p></div></div></main><script src="../site.js"></script></body></html>

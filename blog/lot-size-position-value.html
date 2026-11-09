@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#050302"><meta name="description" content="Turn any lot size into a position value in seconds — examples for gold, forex and crypto."><meta property="og:title" content="Lot Size to Position Value: The Quick Math Every Trader Should Know — LotCal"><meta property="og:description" content="Turn any lot size into a position value in seconds — examples for gold, forex and crypto."><meta property="og:type" content="website"><title>Lot Size to Position Value: The Quick Math Every Trader Should Know — LotCal</title><link rel="stylesheet" href="../site.css"></head><body data-page="blog" data-base="../" data-pop="0"><main class="wrap"><div class="content"><div class="stack narrow"><p class="eyebrow">Lots</p><h1>Lot Size to Position Value: The Quick Math Every Trader Should Know</h1><div class="meta"><span>LotCal Blog</span><span class="dot"></span><span>6 min read</span></div><div class="card"><div class="prose">
+<p>There is one number on your platform that almost everyone ignores, and it is the one that actually tells you how big your trade is. That number is position value. Most traders look at the lot size, nod, and move on — but the lot size by itself is meaningless. What matters is how much value that lot controls, because that is what determines your profit, your loss, and your margin.</p>
+<p>This article gives you the one formula you need and shows it working on gold, forex, and crypto with real numbers.</p>
+
+<h2>The formula</h2>
+<p>Position value is just multiplication. It is always the same shape:</p>
+<p><code>Position value = lot size × contract size × price</code></p>
+<ul>
+<li><strong>Lot size</strong> — the number in the box, like 0.10 or 1.00.</li>
+<li><strong>Contract size</strong> — how many units one lot controls. This is fixed per instrument: 100,000 for forex majors, 100 ounces for gold, 1 coin for BTCUSD.</li>
+<li><strong>Price</strong> — the current market price of the instrument.</li>
+</ul>
+<p>That is the entire trick. Learn the contract size for the instrument you trade, multiply it by price, and then scale by your lot size. Once you have done it a few times, you will be able to do it in your head for common values.</p>
+
+<h2>Example 1: Gold</h2>
+<p>Gold trades with a contract size of 100 ounces per lot. Say gold is at $2,400 per ounce and you want 0.10 lots.</p>
+<p><code>0.10 × 100 × 2,400 = $24,000</code></p>
+<p>Your position value is $24,000. That means a 0.10 lot gold trade is the same as owning $24,000 worth of physical gold — even though you only put up a fraction of that as margin. If gold moves 1%, your position value moves by $240, and so does your equity, before any leverage or fees are counted.</p>
+<p>Now try a micro lot at the same price:</p>
+<p><code>0.01 × 100 × 2,400 = $2,400</code></p>
+<p>Same trade, one tenth of the size, one tenth of the exposure. The formula scales perfectly, which is exactly why it is so useful for sizing risk precisely.</p>
+
+<h3>A quick reference table for gold at $2,400/oz</h3>
+<ul>
+<li>0.01 lot → $2,400</li>
+<li>0.05 lot → $12,000</li>
+<li>0.10 lot → $24,000</li>
+<li>0.50 lot → $120,000</li>
+<li>1.00 lot → $240,000</li>
+</ul>
+<p>Notice the pattern: every time you double the lot, you double the value. Every time you add a zero to the lot, you add a zero to the value. The table is just the formula repeated.</p>
+
+<h2>Example 2: EURUSD</h2>
+<p>Forex majors use a contract size of 100,000 units of the base currency. For EURUSD, the base is the euro, so the price you plug in is the current EURUSD rate. Say the rate is 1.1000 and you want 0.50 lots.</p>
+<p><code>0.50 × 100,000 × 1.1000 = $55,000</code></p>
+<p>So 0.50 lots of EURUSD controls $55,000 of euro exposure. If the rate moves to 1.1100, that is a 0.91% move, which changes your position value by about $500 — again, before leverage. The euro itself never enters the calculation; you just use the exchange rate as the price.</p>
+
+<h2>Example 3: BTCUSD</h2>
+<p>Crypto is the easiest case because the contract size is often just 1. For BTCUSD, one lot equals one full bitcoin, so the formula collapses to:</p>
+<p><code>Position value = lot size × price</code></p>
+<p>At a bitcoin price of $60,000, a 0.20 lot trade is:</p>
+<p><code>0.20 × 60,000 = $12,000</code></p>
+<p>That is $12,000 of exposure to bitcoin. Because the contract size is 1, you can read the position value straight off the lot size and the price — no extra step. Just remember that not every broker uses 1 for crypto; some quote in lots of 100 or 1,000 coins. Always check the contract size in your platform's specifications before assuming.</p>
+
+<h2>How leverage ties in</h2>
+<p>Position value is the number that leverage acts on. Leverage does not make your trade bigger in dollar terms — it lets you control a large position value with a small amount of your own money. The relationship is simple:</p>
+<p><code>Margin required = position value ÷ leverage</code></p>
+<p>If your position value is $24,000 and your broker offers 1:100 leverage, the margin you need is:</p>
+<p><code>24,000 ÷ 100 = $240</code></p>
+<p>So a $240 slice of your balance controls $24,000 of gold. That is why position value is the number that matters for margin: your broker checks it against your balance and leverage, not your lot size directly. A 1.00 lot gold trade at 1:100 needs $2,400 in margin — if your balance is $500, the trade will not fill, no matter how confident you are in the setup.</p>
+
+<h2>Why this matters for risk</h2>
+<p>Once you can turn a lot size into a position value, you can decide what you are comfortable with before you place the order. Rather than asking "can I afford 0.10 lots?", ask "what position value fits my account?" — then work backwards to the lot size. That single change in perspective is the difference between sizing to your risk and sizing to your impulse.</p>
+<p>If you want to skip the arithmetic entirely, the <a href="../index.html">position size calculator</a> on LotCal turns your account balance, risk percentage, and stop distance into a clean lot size in seconds.</p>
+
+<h2>Wrapping up</h2>
+<p>Position value is the bridge between the lot size you type and the money you actually expose. Learn the contract size, multiply by price, scale by lots — and you will never again wonder whether a trade is too big or too small for your account. It is the fastest way to stop guessing and start calculating.</p>
+</div></div><p style="margin-top:24px"><a class="btnline" href="../blog.html">&larr; All articles</a></p></div></div></main><script src="../site.js"></script></body></html>

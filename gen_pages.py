@@ -74,7 +74,7 @@ contact_body = """
 <div class="card">
   <div class="prose">
     <h2>Email</h2>
-    <p>Write to <a href="mailto:node9555@gmail.com">node9555@gmail.com</a>. That&rsquo;s the only contact channel LotCal uses &mdash; there&rsquo;s no sign-up, no account and no form that silently drops your message.</p>
+    <p>Write to <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a>. That&rsquo;s the only contact channel LotCal uses &mdash; there&rsquo;s no sign-up, no account and no form that silently drops your message.</p>
 
     <h2>How fast will I reply?</h2>
     <p>Usually within <strong>24&ndash;48 hours</strong> on working days. If it&rsquo;s urgent (a broken calculator, a wrong contract size), put &ldquo;LotCal&rdquo; in the subject line and I&rsquo;ll get to it first.</p>
@@ -88,12 +88,12 @@ contact_body = """
     </ul>
 
     <h2>Email me now</h2>
-    <p><a class="btnline" href="mailto:node9555@gmail.com?subject=LotCal%20%2D%20Message">Email LotCal &rarr;</a></p>
+    <p><a class="btnline" href="mailto:Cryptowithus.help@gmail.com?subject=LotCal%20%2D%20Message">Email LotCal &rarr;</a></p>
     <p style="margin-top:calc(14*var(--u))"><em>I can&rsquo;t help with trade decisions, account issues or broker problems &mdash; that&rsquo;s between you and your broker. For anything about the site itself, I&rsquo;m happy to help.</em></p>
   </div>
 </div>
 """
-page('contact.html', 'Contact — LotCal', 'Contact LotCal: email node9555@gmail.com, reply within 24–48 hours on working days.', 'Email LotCal directly — real email, real reply, no fake form.', contact_body, 'contact')
+page('contact.html', 'Contact — LotCal', 'Contact LotCal: email Cryptowithus.help@gmail.com, reply within 24–48 hours on working days.', 'Email LotCal directly — real email, real reply, no fake form.', contact_body, 'contact')
 
 # ============ PRIVACY ============
 privacy_body = """
@@ -127,7 +127,7 @@ privacy_body = """
     <p>Use the cookie banner on any page to accept or reject non-essential cookies at any time, or clear your cookies in your browser settings. Essential local storage items (<code>lotcal_cookie</code>, <code>lotcal_disc</code>) are used only for the site to remember your preferences.</p>
 
     <h2>5. Data deletion</h2>
-    <p>Because we store no personal data on a server, there is usually nothing for us to delete. If you want us to remove anything you&rsquo;ve sent us by email, or to confirm what we hold, email <a href="mailto:node9555@gmail.com">node9555@gmail.com</a> with the subject <strong>&ldquo;LotCal data request&rdquo;</strong>. We&rsquo;ll confirm within 30 days.</p>
+    <p>Because we store no personal data on a server, there is usually nothing for us to delete. If you want us to remove anything you&rsquo;ve sent us by email, or to confirm what we hold, email <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a> with the subject <strong>&ldquo;LotCal data request&rdquo;</strong>. We&rsquo;ll confirm within 30 days.</p>
 
     <h2>6. GDPR — visitors in the EU, UK and Switzerland</h2>
     <p>If you are in the European Economic Area, the United Kingdom or Switzerland, the EU General Data Protection Regulation (GDPR) and UK GDPR apply to any personal data we process:</p>
@@ -135,7 +135,7 @@ privacy_body = """
       <li><strong>Legal basis:</strong> essential cookies are processed on the basis of legitimate interest (making the site work); analytics and advertising cookies are processed only on the basis of your <strong>consent</strong>, which you give or withhold through the cookie banner.</li>
       <li><strong>Your rights:</strong> you have the right to access, correct, erase, restrict and object to processing of your personal data, and the right to data portability. You can withdraw consent at any time by clearing your cookies or rejecting non-essential cookies in the banner.</li>
       <li><strong>Complaints:</strong> you may lodge a complaint with your local supervisory authority if you believe your data is handled unlawfully.</li>
-      <li><strong>Contact:</strong> for any GDPR request, email <a href="mailto:node9555@gmail.com">node9555@gmail.com</a> with the subject <strong>&ldquo;GDPR request&rdquo;</strong>.</li>
+      <li><strong>Contact:</strong> for any GDPR request, email <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a> with the subject <strong>&ldquo;GDPR request&rdquo;</strong>.</li>
     </ul>
     <p>Data is not transferred outside these regions knowingly; if it is (for example, via a third-party ad server), it is on the basis of the consent you give or standard contractual safeguards.</p>
 
@@ -146,7 +146,7 @@ privacy_body = """
     <p>If this policy changes, we&rsquo;ll update this page and the date above. Significant changes will be flagged on the site.</p>
 
     <h2>9. Contact</h2>
-    <p>Questions about privacy: <a href="mailto:node9555@gmail.com">node9555@gmail.com</a>.</p>
+    <p>Questions about privacy: <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a>.</p>
   </div>
 </div>
 """
@@ -192,7 +192,7 @@ terms_body = """
     <p>These terms are governed by the laws of the site owner&rsquo;s country of residence, without regard to conflict-of-law rules. Mandatory consumer laws of your country of residence are not affected.</p>
 
     <h2>10. Contact</h2>
-    <p>Questions about these terms: <a href="mailto:node9555@gmail.com">node9555@gmail.com</a>.</p>
+    <p>Questions about these terms: <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a>.</p>
   </div>
 </div>
 """
@@ -234,7 +234,7 @@ cookies_body = """
     <p>You can also block or delete cookies through your browser settings. Doing so may reset your preferences and show the banner again.</p>
 
     <h2>8. Contact</h2>
-    <p>Questions about cookies: <a href="mailto:node9555@gmail.com">node9555@gmail.com</a>.</p>
+    <p>Questions about cookies: <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a>.</p>
   </div>
 </div>
 """
@@ -256,7 +256,7 @@ faq_body = """
   <details><summary>How accurate is the leverage number?</summary><div class="a"><p>It&rsquo;s exact arithmetic for the values you enter, but it is a <em>theoretical</em> estimate: it assumes your entire balance is initial margin and ignores fees, spread, and broker margin tiers. It will not match a real broker&rsquo;s actual margin requirement exactly. Use it to understand the size of a position, not as a guaranteed quote.</p></div></details>
   <details><summary>Can I use it for spot trading?</summary><div class="a"><p>Yes, with a caveat. Spot trades don&rsquo;t use leverage the same way, but you can still enter your balance and size to see position value and quantity. The leverage figure is meaningful for margin and futures accounts.</p></div></details>
   <details><summary>Is there a mobile app?</summary><div class="a"><p>No — LotCal is a responsive website that works on any phone browser. It&rsquo;s deliberately small and fast.</p></div></details>
-  <details><summary>How do I report a bug or suggest a pair?</summary><div class="a"><p>Email <a href="mailto:node9555@gmail.com">node9555@gmail.com</a>. Real messages get a real reply, usually within 24&ndash;48 hours on working days.</p></div></details>
+  <details><summary>How do I report a bug or suggest a pair?</summary><div class="a"><p>Email <a href="mailto:Cryptowithus.help@gmail.com">Cryptowithus.help@gmail.com</a>. Real messages get a real reply, usually within 24&ndash;48 hours on working days.</p></div></details>
 </div>
 """
 page('faq.html', 'FAQ — LotCal', 'Frequently asked questions about the LotCal leverage calculator: will the broker give this leverage, why prices aren\'t live, what P&L per $1 means, and which pairs are supported.', 'Common questions about LotCal, answered honestly.', faq_body, 'faq')
