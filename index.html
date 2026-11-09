@@ -68,6 +68,29 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 .f-made{margin-top:calc(22*var(--u));font-size:calc(14*var(--u));color:#ecd8c2;display:flex;align-items:center;gap:calc(7*var(--u))}
 .f-made strong{color:var(--cream);font-weight:600}
 .f-made .bh{color:#000;font-size:calc(14*var(--u));line-height:1}
+/* P&L per $1 movement + reset */
+.btn-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:calc(6*var(--u))}
+button#calc{margin-top:0}
+button#reset{font-weight:600;font-size:calc(16*var(--u));color:var(--cream);background:rgba(0,0,0,.3);border:1px solid rgba(255,190,120,.18);border-radius:calc(6*var(--u));padding:calc(16*var(--u)) calc(20*var(--u));transition:border-color .2s,background .2s;white-space:nowrap}
+button#reset:hover{border-color:var(--amber);background:rgba(248,150,64,.08)}
+#pnl-live{margin-top:calc(18*var(--u));padding:calc(16*var(--u)) calc(18*var(--u));background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:calc(6*var(--u));text-align:center;animation:in .4s}
+#pnl-live[hidden]{display:none}
+.pnl-cap{font-size:calc(12.5*var(--u));color:var(--mid);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.pnl-vals{font-family:"Geist Mono",monospace;font-size:calc(26*var(--u));font-weight:600;margin-top:calc(6*var(--u))}
+.pnl-vals .pos{color:#4ade80}
+.pnl-vals .neg{color:#f87171}
+.pnl-sep{color:var(--mid);margin:0 calc(10*var(--u));font-weight:400}
+.pnl-card{margin-top:calc(20*var(--u))}
+.pnl-title{font-size:calc(18*var(--u));font-weight:600;letter-spacing:-.01em;margin-bottom:calc(14*var(--u))}
+.pnl-table{width:100%;border-collapse:collapse;font-size:calc(14.5*var(--u));text-align:left}
+.pnl-table th{color:var(--mid);font-weight:500;font-size:calc(12*var(--u));text-transform:uppercase;letter-spacing:.05em;padding:calc(8*var(--u)) calc(10*var(--u));border-bottom:1px solid var(--line)}
+.pnl-table td{padding:calc(11*var(--u)) calc(10*var(--u));border-bottom:1px solid rgba(255,190,120,.07);font-variant-numeric:tabular-nums;font-family:"Geist Mono",monospace}
+.pnl-table tr:last-child td{border-bottom:0}
+.pnl-table tr.hl td{background:rgba(248,150,64,.12);color:var(--peach)}
+.pnl-table td.pos{color:#4ade80}
+.pnl-table td.neg{color:#f87171}
+.pnl-table td.dim{color:var(--mid);opacity:.6}
+@media (max-width:460px){.btn-row{grid-template-columns:1fr}}
 @media (max-width:820px){
   :root{--u:1px}
   .content{padding:48px 16px 16px}
@@ -116,7 +139,10 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
           <p class="hint" id="price-hint"></p>
         </div>
         <p id="error" role="alert"></p>
-        <button id="calc" type="button">Calculate required leverage</button>
+        <div class="btn-row">
+          <button id="calc" type="button">Calculate required leverage</button>
+          <button id="reset" type="button">Reset</button>
+        </div>
 
         <section id="result" aria-live="polite" hidden>
           <p class="you">YOU NEED</p>
@@ -129,6 +155,20 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
             <div><dt>Position Value</dt><dd id="o-pos"></dd></div>
             <div><dt>Quantity</dt><dd id="o-qty"></dd></div>
           </dl>
+        </section>
+
+        <section id="pnl-live" aria-live="polite" hidden>
+          <p class="pnl-cap">P&amp;L per $1 price movement</p>
+          <p class="pnl-vals"><span id="pnl-up" class="pos"></span><span class="pnl-sep">/</span><span id="pnl-down" class="neg"></span></p>
+        </section>
+
+        <section class="card pnl-card">
+          <h2 class="pnl-title">P&amp;L per $1 price movement</h2>
+          <table class="pnl-table">
+            <thead><tr><th>Lot Size</th><th>Quantity</th><th>Profit (+$1)</th><th>Loss (&minus;$1)</th></tr></thead>
+            <tbody id="pnl-body"></tbody>
+          </table>
+          <p class="hint">Entered lot is highlighted. Profit when the price rises $1, loss when it falls $1 &mdash; based on the selected pair's contract size.</p>
         </section>
       </div>
     </div>
@@ -201,6 +241,11 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
   }
   function fmt(n, min, max) { return n.toLocaleString('en-US', {minimumFractionDigits:min, maximumFractionDigits:max}); }
   function money(n) { return '$' + fmt(n, 0, 2); }
+  // P&L per $1 move can be small (e.g. BTC 0.001 lot = $0.001) or large — keep enough precision
+  function pnlMoney(x) {
+    if (x >= 0.01) return '$' + fmt(x, 2, 2);
+    return '$' + fmt(x, 3, 4);
+  }
   function leverageText(x) {
     var d = x >= 100 ? 0 : x >= 10 ? 1 : 2;
     return fmt(Number(x.toFixed(d)), 0, d) + 'X';
@@ -247,13 +292,65 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
     $('result').hidden = false;
   }
 
-  els.pair.addEventListener('change', function () { loadPair(); $('result').hidden = true; showError('', []); });
+  // --- P&L per $1 price movement (gold: 0.001 lot = 0.1 oz -> $0.10; 0.005 -> $0.50; 0.01 -> $1.00) ---
+  var PNL_LOTS = [0.001, 0.005, 0.01];
+
+  // USD value of a $1 price move for a given lot (quote-USD pairs): lot × contract
+  function pnlPerDollar(lot, p) {
+    if (!p || p.base) return null;            // USD-base pairs have no direct $1 USD move
+    return lot * p.contract;
+  }
+
+  function buildPnlTable() {
+    var p = current(), body = $('pnl-body');
+    body.innerHTML = '';
+    PNL_LOTS.forEach(function (lot) {
+      var qty = lot * p.contract, per = p.base ? null : qty;
+      var tr = document.createElement('tr');
+      tr.dataset.lot = lot;
+      tr.innerHTML = '<td>' + lot.toFixed(3) + '</td>' +
+        '<td>' + fmt(qty, 2, 4) + ' ' + p.unit + '</td>' +
+        (per === null
+          ? '<td class="dim" colspan="2">\u2014</td>'
+          : '<td class="pos">' + pnlMoney(per) + '</td><td class="neg">\u2212' + pnlMoney(per) + '</td>');
+      body.appendChild(tr);
+    });
+    updatePnlLive(els.lot.value);
+  }
+
+  function updatePnlLive(raw) {
+    var p = current(), el = $('pnl-live');
+    var per = Number((raw || '').trim());
+    if (!(per > 0) || p.base) { el.hidden = true; return; }
+    var usd = pnlPerDollar(per, p);
+    if (!(usd > 0)) { el.hidden = true; return; }
+    $('pnl-up').textContent = '+' + pnlMoney(usd);
+    $('pnl-down').textContent = '\u2212' + pnlMoney(usd);
+    el.hidden = false;
+    Array.prototype.forEach.call(document.querySelectorAll('#pnl-body tr'), function (tr) {
+      tr.classList.toggle('hl', Number(tr.dataset.lot) === per);
+    });
+  }
+
+  function resetAll() {
+    [els.balance, els.lot, els.price].forEach(function (e) { e.value = ''; e.setAttribute('aria-invalid', 'false'); });
+    loadPair();
+    $('result').hidden = true;
+    buildPnlTable();
+    showError('', []);
+    els.balance.focus();
+  }
+
+  els.pair.addEventListener('change', function () { loadPair(); $('result').hidden = true; showError('', []); buildPnlTable(); });
   $('calc').addEventListener('click', calculate);
+  $('reset').addEventListener('click', resetAll);
+  els.lot.addEventListener('input', function () { updatePnlLive(els.lot.value); });
   [els.balance, els.lot, els.price].forEach(function (el) {
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calculate(); } });
   });
 
   loadPair();
+  buildPnlTable();
 })();
 </script>
 
