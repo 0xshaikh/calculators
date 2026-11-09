@@ -61,37 +61,9 @@
         </section>
       </div>
 
-      <section class="prose" style="margin-top:calc(40*var(--u))">
-        <h2>What is leverage, and how does the calculator work?</h2>
-        <p><strong>Leverage</strong> lets you control a position worth far more than your account balance. With 1:100 leverage, $100 controls a $10,000 position — the broker lends you the difference, and your margin is the slice of your balance set aside as collateral. LotCal is deliberately conservative: it assumes your <em>entire</em> balance is available as initial margin, so the leverage you see is the maximum your account could possibly support.</p>
-
-        <h3>The formula</h3>
-        <p>Required leverage = Position value &divide; Account balance<br>
-        Position value = Lot size &times; Contract size &times; Price</p>
-
-        <h3>Example 1 — Gold (XAUUSD)</h3>
-        <p>1 lot of gold is 100 troy oz. On a <strong>$30</strong> balance with <strong>0.01 lot</strong> at <strong>$4,100</strong>:</p>
-        <ul>
-          <li>Quantity = 0.01 &times; 100 = <strong>1 oz</strong></li>
-          <li>Position value = 1 &times; $4,100 = <strong>$4,100</strong></li>
-          <li>Required leverage = $4,100 &divide; $30 &asymp; <strong>137X</strong></li>
-        </ul>
-        <p>Your broker must offer at least ~137:1 leverage to open that trade on a $30 account.</p>
-
-        <h3>Example 2 — Euro (EURUSD)</h3>
-        <p>1 lot of EURUSD is 100,000 EUR. On a <strong>$1,000</strong> balance with <strong>0.1 lot</strong> at <strong>1.1232</strong>:</p>
-        <ul>
-          <li>Quantity = 0.1 &times; 100,000 = <strong>10,000 EUR</strong></li>
-          <li>Position value = 10,000 &times; 1.1232 = <strong>$11,232</strong></li>
-          <li>Required leverage = $11,232 &divide; $1,000 &asymp; <strong>11.2X</strong></li>
-        </ul>
-
-        <h3>P&amp;L per $1 move</h3>
-        <p>Because 1 gold lot = 100 oz, a 0.01 lot is exactly 1 oz — so every $1 gold moves, your P&amp;L changes by <strong>$1</strong>. The result shows this as <strong>+$1.00 / &minus;$1.00</strong> (green / red). For a 0.001 lot it is $0.10 per $1 move, and for 0.005 lot it is $0.50. That live figure is the per-lot sensitivity of the position, straight from the contract size.</p>
-
-        <h3>Why it matters</h3>
-        <p>Higher leverage means bigger swings on the same balance. At 137X, a 1% adverse price move wipes out roughly the whole margin you put up — and on some brokers losses can exceed your deposit. LotCal shows the arithmetic so you can size positions before you click buy or sell. It is education, not a recommendation.</p>
-      </section>
+      <p style="text-align:center;margin-top:calc(40*var(--u))">
+        <a class="btnline" href="how-it-works.html">How it works &rarr;</a>
+      </p>
 
       <div class="callout" style="margin-top:calc(28*var(--u))">
         <p class="t">Disclaimer</p>
