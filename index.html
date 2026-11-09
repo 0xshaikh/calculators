@@ -90,6 +90,19 @@ button#reset:hover{border-color:var(--amber);background:rgba(248,150,64,.08)}
 .pnl-table td.pos{color:#4ade80}
 .pnl-table td.neg{color:#f87171}
 .pnl-table td.dim{color:var(--mid);opacity:.6}
+/* footer legal links */
+.f-links{display:flex;flex-wrap:wrap;gap:calc(10*var(--u)) calc(22*var(--u));margin-top:calc(26*var(--u));padding-bottom:calc(24*var(--u));border-bottom:1px solid var(--line)}
+.f-links a{font-size:calc(14*var(--u));color:#ecd8c2;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,214,170,.35);transition:color .2s}
+.f-links a:hover{color:var(--peach)}
+/* disclaimer popup (bottom, on load) */
+#disc-pop{position:fixed;left:50%;bottom:calc(16*var(--u));transform:translateX(-50%);width:min(calc(620*var(--u)),calc(100vw - 24px));background:rgba(24,12,5,.97);border:1px solid rgba(255,190,120,.22);border-radius:calc(8*var(--u));box-shadow:0 calc(18*var(--u)) calc(50*var(--u)) rgba(0,0,0,.55);padding:calc(16*var(--u)) calc(18*var(--u));z-index:50;animation:in .5s}
+#disc-pop[hidden]{display:none}
+.disc-t{font-size:calc(13*var(--u));font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:calc(6*var(--u))}
+.disc-b{font-size:calc(13.5*var(--u));line-height:1.5;color:#f0dcc6}
+.disc-a{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:calc(12*var(--u));flex-wrap:wrap}
+.disc-a a{font-size:calc(13*var(--u));color:var(--peach);text-decoration:underline;text-underline-offset:3px}
+#disc-ok{font-weight:600;font-size:calc(14*var(--u));color:var(--ink);background:linear-gradient(180deg,#f89640,#e26a18);border-radius:calc(6*var(--u));padding:calc(10*var(--u)) calc(22*var(--u));transition:filter .2s}
+#disc-ok:hover{filter:brightness(1.1)}
 @media (max-width:460px){.btn-row{grid-template-columns:1fr}}
 @media (max-width:820px){
   :root{--u:1px}
@@ -176,10 +189,24 @@ button#reset:hover{border-color:var(--amber);background:rgba(248,150,64,.08)}
       <div>
         <a class="f-brand" href="#" aria-label="Zafra"><span class="f-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12L6 16h12" fill="none" stroke="#1b0d05" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Zafra</a>
         <p class="f-tag">Prices are a snapshot from 4–6 Nov 2026 and do not update live, so replace the price with your broker's current quote. Contract sizes are common broker defaults; check your broker's specification and edit if different. This is a theoretical estimate assuming your entire balance is available as initial margin. It does not guarantee a broker will allow that leverage or accept the order. Actual margin requirements, leverage tiers, fees, spread, maintenance margin and liquidation rules vary by broker.</p>
+        <nav class="f-links" aria-label="Legal">
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="guidelines.html">User Guidelines</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="how-it-works.html">How it Works</a>
+        </nav>
         <p class="f-copy">&copy; Zafra 2026 &middot; Forex &amp; Crypto Leverage Calculator</p>
         <p class="f-made">Made by <strong>Anas Shaikh</strong> <span class="bh" aria-hidden="true">&#9829;</span></p>
       </div>
     </footer>
+    <aside id="disc-pop" role="dialog" aria-label="Disclaimer" aria-live="polite">
+      <p class="disc-t">Disclaimer</p>
+      <p class="disc-b">Zafra is an educational calculator &mdash; not financial advice, not a trade recommendation. Leverage trading carries a high risk of losing your entire margin. Calculations are theoretical estimates; verify contract sizes and prices with your broker.</p>
+      <div class="disc-a">
+        <a href="disclaimer.html">Read full disclaimer</a>
+        <button id="disc-ok" type="button">I understand</button>
+      </div>
+    </aside>
   </div>
 </main>
 
@@ -344,6 +371,7 @@ button#reset:hover{border-color:var(--amber);background:rgba(248,150,64,.08)}
   els.pair.addEventListener('change', function () { loadPair(); $('result').hidden = true; showError('', []); buildPnlTable(); });
   $('calc').addEventListener('click', calculate);
   $('reset').addEventListener('click', resetAll);
+  $('disc-ok').addEventListener('click', function () { $('disc-pop').hidden = true; });
   els.lot.addEventListener('input', function () { updatePnlLive(els.lot.value); });
   [els.balance, els.lot, els.price].forEach(function (el) {
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calculate(); } });
