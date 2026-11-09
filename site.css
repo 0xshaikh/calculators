@@ -1,4 +1,4 @@
-:root{--u:min(calc(100vw/1600),calc(100vh/940));--cream:#fbefe2;--mid:#d9c3ad;--line:rgba(255,214,170,.14);--glass:#1f0f08;--amber:#f89640;--amber2:#e26a18;--peach:#ffd6aa;--ink:#1b0d05}
+:root{--u:min(calc(100vw/1600),calc(100vh/940));--cream:#fbefe2;--mid:#d9c3ad;--line:rgba(255,214,170,.14);--glass:#1f0f08;--amber:#f89640;--amber2:#e26a18;--peach:#ffd6aa;--ink:#1b0d05;--blue:#4b9fff}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#050302}
 body{color:var(--cream);font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100svh}
@@ -161,3 +161,26 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 }
 @media (max-width:460px){.row{grid-template-columns:1fr}.btn-row{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== BINANCE ORDER PANEL (LotCal "Place it on Binance Futures") ===== */
+.bn{margin-top:30px;padding-top:26px;border-top:1px solid var(--line);text-align:left}
+.bn h3{margin:0 0 4px;font-size:1.05rem}
+.bn-sub{color:var(--mid);font-size:.85rem;margin:0 0 16px}
+.bn-card{background:#1e2329;border:1px solid #2b3139;border-radius:12px;padding:14px;max-width:360px;margin:0 auto}
+.bn-sym{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.25rem}
+.bn-sym span{font-size:.7rem;font-weight:500;color:#9aa4b2;border:1px solid #38414d;border-radius:4px;padding:1px 6px}
+.bn-modes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
+.bn-modes>span{position:relative;background:#2b3139;border-radius:8px;text-align:center;padding:10px 0;font-weight:600;font-size:.95rem}
+.bn-row{display:flex;justify-content:space-between;font-size:.88rem;color:#9aa4b2;margin:8px 0}
+.bn-row b{color:#eaecef;font-weight:500}
+.bn-box{position:relative;background:#2b3139;border-radius:8px;padding:10px 12px;margin:8px 0}
+.bn-box small{display:block;color:#9aa4b2;font-size:.78rem}
+.bn-box b{font-size:1.15rem;font-weight:600}
+.bn-box em{display:block;font-style:normal;color:#9aa4b2;font-size:.8rem;margin-top:2px}
+.hl{outline:2px solid var(--blue);outline-offset:2px}
+.hl i{position:absolute;top:-11px;right:-8px;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-style:normal;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.bn-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.bn-btns span{text-align:center;padding:12px 0;border-radius:8px;font-weight:700;color:#fff}
+.buy{background:#2ebd85}.sell{background:#f6465d}
+.bn-steps{font-size:.92rem;line-height:1.6;padding-left:20px;margin:18px 0 8px}
+#bn-warn{color:var(--mid);font-size:.8rem;line-height:1.5;margin:6px 0 0}

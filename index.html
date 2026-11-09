@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f89640'/%3E%3Cstop offset='1' stop-color='%23e26a18'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='22' height='22' rx='6' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%231b0d05' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4.5' width='12' height='15' rx='2'/%3E%3Crect x='8' y='7' width='8' height='3.4' rx='0.8'/%3E%3C/g%3E%3Cg fill='%231b0d05'%3E%3Ccircle cx='8.6' cy='13.2' r='0.9'/%3E%3Ccircle cx='12' cy='13.2' r='0.9'/%3E%3Ccircle cx='15.4' cy='13.2' r='0.9'/%3E%3Ccircle cx='8.6' cy='16.3' r='0.9'/%3E%3Ccircle cx='12' cy='16.3' r='0.9'/%3E%3Ccircle cx='15.4' cy='16.3' r='0.9'/%3E%3C/g%3E%3C/svg%3E">
-<link rel="stylesheet" href="site.css?v=4">
+<link rel="stylesheet" href="site.css?v=5">
 </head>
 <body data-page="home" data-base="">
 <main class="wrap">
@@ -58,6 +58,26 @@
             <div><dt>Quantity</dt><dd id="o-qty"></dd></div>
             <div><dt>P&amp;L per $1 move</dt><dd><span id="o-pnlup" class="pos"></span> / <span id="o-pnldown" class="neg"></span></dd></div>
           </dl>
+
+          <div id="bn" class="bn" hidden>
+            <h3>Place it on Binance Futures</h3>
+            <p class="bn-sub">Set these exactly as shown in the USDⓈ-M order screen (layout is illustrative; not affiliated with Binance).</p>
+            <div class="bn-card">
+              <div class="bn-sym"><b id="bn-sym"></b><span>Perp</span></div>
+              <div class="bn-modes"><span>Cross</span><span class="hl"><i>1</i><b id="bn-lev"></b></span><span>S</span></div>
+              <div class="bn-row"><span>Avbl</span><b id="bn-avbl"></b></div>
+              <div class="bn-box"><small>Price (USDT)</small><b id="bn-price"></b></div>
+              <div class="bn-box hl"><i>2</i><small>Amount (USDT)</small><b id="bn-amt"></b><em id="bn-qty"></em></div>
+              <div class="bn-row"><span>Cost (margin)</span><b id="bn-cost"></b></div>
+              <div class="bn-btns"><span class="buy">Buy/Long</span><span class="sell">Sell/Short</span></div>
+            </div>
+            <ol class="bn-steps">
+              <li>Tap the leverage button and select <b id="s-lev"></b>.</li>
+              <li>Set the unit to <b>USDT</b> and enter <b id="s-amt"></b> as the Amount.</li>
+              <li>That equals your <b id="s-lot"></b> lot (<b id="s-qty"></b>).</li>
+            </ol>
+            <p id="bn-warn"></p>
+          </div>
         </section>
       </div>
 
@@ -68,7 +88,7 @@
     </div>
   </div>
 </main>
-<script src="site.js?v=4"></script>
+<script src="site.js?v=5"></script>
 <script>
 (function () {
   // base:true = USD is the base currency, so position value in USD = lot × contract (price not used)
@@ -135,6 +155,39 @@
     return fmt(Number(x.toFixed(d)), 0, d) + 'X';
   }
 
+  // Binance USDⓈ-M Futures: only these pairs exist on Binance. [symbol, coin]
+  var BN = {
+    XAUUSD: ['XAUUSDT', 'XAU'],
+    XAGUSD: ['XAGUSDT', 'XAG'],
+    BTCUSD: ['BTCUSDT', 'BTC'],
+    ETHUSD: ['ETHUSDT', 'ETH']
+  };
+
+  // p = selected pair ({id,...}), b = balance, l = lot size,
+  // r = {qty, position, leverage} from computeLeverage
+  function renderBinance(p, b, l, r) {
+    var m = BN[p.id], box = $('bn');
+    if (!m) { box.hidden = true; return; }
+    var lev = Math.max(1, Math.ceil(r.leverage - 1e-9));
+    var amt = fmt(r.position, 2, 2) + ' USDT';
+    var qty = fmt(r.qty, 0, 4) + ' ' + m[1];
+    $('bn-sym').textContent = m[0];
+    $('bn-lev').textContent = lev + 'x';
+    $('bn-avbl').textContent = fmt(b, 2, 2) + ' USDT';
+    $('bn-price').textContent = fmt(parse(els.price), 2, 2);
+    $('bn-amt').textContent = fmt(r.position, 2, 2);
+    $('bn-qty').textContent = '\u2248 ' + qty;
+    $('bn-cost').textContent = fmt(r.position / lev, 2, 2) + ' USDT';
+    $('s-lev').textContent = lev + 'x';
+    $('s-amt').textContent = amt;
+    $('s-lot').textContent = fmt(l, 0, 6);
+    $('s-qty').textContent = qty;
+    $('bn-warn').textContent = lev > 125
+      ? 'This needs more than 125x, which Binance does not offer. Increase your balance or reduce the size.'
+      : 'Leverage is rounded up to a whole number because Binance only accepts whole-number leverage, so your margin cost stays within your balance. Maximum leverage and minimum order size vary by symbol and position size; check them on Binance.';
+    box.hidden = false;
+  }
+
   function showError(msg, bad) {
     $('error').textContent = msg;
     [els.balance, els.pair, els.lot, els.price].forEach(function (e) {
@@ -182,6 +235,7 @@
       $('o-pnldown').textContent = '';
     }
     $('result').hidden = false;
+    renderBinance(p, b, l, r);
   }
 
   function resetAll() {
