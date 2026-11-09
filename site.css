@@ -179,8 +179,11 @@ footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:cal
 .bn-box em{display:block;font-style:normal;color:#9aa4b2;font-size:.8rem;margin-top:2px}
 .hl{outline:2px solid var(--blue);outline-offset:2px}
 .hl i{position:absolute;top:-11px;right:-8px;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-style:normal;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center}
-.bn-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.bn-btns span{text-align:center;padding:12px 0;border-radius:8px;font-weight:700;color:#fff}
+.bn-opt{display:flex;gap:8px;margin:10px 0 4px;flex-wrap:wrap}
+.bn-opt span{background:#2b3139;border:1px solid #38414d;color:#9aa4b2;border-radius:6px;font-size:.7rem;padding:3px 8px}
+.bn-risk{display:flex;justify-content:space-between;gap:8px;background:#262c33;border-radius:8px;padding:8px 10px;margin:8px 0 4px;font-size:.72rem;color:#9aa4b2}
+.bn-risk b{color:#eaecef;font-weight:500}
+.buy,.sell{display:block;text-align:center;padding:12px 0;border-radius:8px;font-weight:700;color:#fff;margin-top:4px}
 .buy{background:#2ebd85}.sell{background:#f6465d}
 .bn-steps{font-size:.92rem;line-height:1.6;padding-left:20px;margin:18px 0 8px}
 #bn-warn{color:var(--mid);font-size:.8rem;line-height:1.5;margin:6px 0 0}

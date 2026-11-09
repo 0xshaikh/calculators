@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f89640'/%3E%3Cstop offset='1' stop-color='%23e26a18'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='1' y='1' width='22' height='22' rx='6' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%231b0d05' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4.5' width='12' height='15' rx='2'/%3E%3Crect x='8' y='7' width='8' height='3.4' rx='0.8'/%3E%3C/g%3E%3Cg fill='%231b0d05'%3E%3Ccircle cx='8.6' cy='13.2' r='0.9'/%3E%3Ccircle cx='12' cy='13.2' r='0.9'/%3E%3Ccircle cx='15.4' cy='13.2' r='0.9'/%3E%3Ccircle cx='8.6' cy='16.3' r='0.9'/%3E%3Ccircle cx='12' cy='16.3' r='0.9'/%3E%3Ccircle cx='15.4' cy='16.3' r='0.9'/%3E%3C/g%3E%3C/svg%3E">
-<link rel="stylesheet" href="site.css?v=5">
+<link rel="stylesheet" href="site.css?v=6">
 </head>
 <body data-page="home" data-base="">
 <main class="wrap">
@@ -66,10 +66,14 @@
               <div class="bn-sym"><b id="bn-sym"></b><span>Perp</span></div>
               <div class="bn-modes"><span>Cross</span><span class="hl"><i>1</i><b id="bn-lev"></b></span><span>S</span></div>
               <div class="bn-row"><span>Avbl</span><b id="bn-avbl"></b></div>
+              <div class="bn-row"><span>Order type</span><b>Limit</b></div>
               <div class="bn-box"><small>Price (USDT)</small><b id="bn-price"></b></div>
               <div class="bn-box hl"><i>2</i><small>Amount (USDT)</small><b id="bn-amt"></b><em id="bn-qty"></em></div>
-              <div class="bn-row"><span>Cost (margin)</span><b id="bn-cost"></b></div>
-              <div class="bn-btns"><span class="buy">Buy/Long</span><span class="sell">Sell/Short</span></div>
+              <div class="bn-opt"><span>TP/SL</span><span>Reduce Only</span><span>GTC</span></div>
+              <div class="bn-risk"><small>Liq. Price <b>&mdash;</b></small><small>Max <b>&mdash;</b></small><small>Cost <b id="bn-cost-buy"></b></small></div>
+              <span class="buy">Buy/Long</span>
+              <div class="bn-risk"><small>Liq. Price <b>&mdash;</b></small><small>Max <b>&mdash;</b></small><small>Cost <b id="bn-cost-sell"></b></small></div>
+              <span class="sell">Sell/Short</span>
             </div>
             <ol class="bn-steps">
               <li>Tap the leverage button and select <b id="s-lev"></b>.</li>
@@ -88,7 +92,7 @@
     </div>
   </div>
 </main>
-<script src="site.js?v=5"></script>
+<script src="site.js?v=6"></script>
 <script>
 (function () {
   // base:true = USD is the base currency, so position value in USD = lot × contract (price not used)
@@ -177,7 +181,8 @@
     $('bn-price').textContent = fmt(parse(els.price), 2, 2);
     $('bn-amt').textContent = fmt(r.position, 2, 2);
     $('bn-qty').textContent = '\u2248 ' + qty;
-    $('bn-cost').textContent = fmt(r.position / lev, 2, 2) + ' USDT';
+    $('bn-cost-buy').textContent = fmt(r.position / lev, 2, 2) + ' USDT';
+    $('bn-cost-sell').textContent = fmt(r.position / lev, 2, 2) + ' USDT';
     $('s-lev').textContent = lev + 'x';
     $('s-amt').textContent = amt;
     $('s-lot').textContent = fmt(l, 0, 6);
