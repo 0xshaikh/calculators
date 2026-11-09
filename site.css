@@ -112,7 +112,7 @@ dd .neg{color:#f87171}
 .btnline:hover{filter:brightness(1.1)}
 .btnline:active{transform:scale(.98)}
 /* ===== FOOTER ===== */
-footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:calc(40*var(--u));padding:calc(46*var(--u)) calc(64*var(--u)) calc(44*var(--u));background:linear-gradient(180deg,rgba(42,21,8,.97),rgba(84,40,14,.95));border:1px solid rgba(255,190,120,.12);border-radius:calc(6*var(--u))}
+footer{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr;gap:calc(40*var(--u));padding:calc(46*var(--u)) calc(64*var(--u)) calc(44*var(--u));background:linear-gradient(180deg,#2a1508,#54280e);border:1px solid rgba(255,190,120,.12);border-radius:calc(6*var(--u))}
 .f-brand{display:flex;align-items:center;gap:calc(14*var(--u));font-size:calc(25*var(--u));font-weight:500;letter-spacing:-.02em;color:var(--cream)}
 .f-mark{display:grid;place-items:center;width:calc(38*var(--u));height:calc(38*var(--u));background:var(--cream);border-radius:calc(2*var(--u));flex:none}
 .f-mark svg{width:56%;height:56%}
